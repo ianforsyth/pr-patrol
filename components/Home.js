@@ -18,7 +18,7 @@ class Home extends React.Component {
 
   retrieveAuthToken(code) {
     console.log(code)
-    axios.post('http://localhost:3000/user', {
+    axios.post(`${process.env.API_URL}/user`, {
       code: code,
     }).then((response) => {
       console.log(response)
