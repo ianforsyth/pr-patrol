@@ -1,4 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import HelloWorld from './components/HelloWorld'
-ReactDOM.render(<HelloWorld />, document.getElementById('app'))
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
+import Home from './components/Home'
+
+ReactDOM.render(
+  <Router>
+    <Route path="/" component={Home}>
+    </Route>
+  </Router>,
+
+  document.getElementById('app')
+)
