@@ -31,7 +31,7 @@ class Home extends React.Component {
     return (
       <div>
         <h1>Hello World</h1>
-        <a href='https://github.com/login/oauth/authorize?client_id=267ab42d303e50fe6eca&scope=write:repo'>Login with github</a>
+        <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>Login with github</a>
       </div>
     )
   }

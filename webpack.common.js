@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: path.resolve(__dirname, 'app'),
@@ -9,11 +10,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'API_URL':  JSON.stringify(process.env.API_URL || 'http://localhost:3001'),
-      }
-    })
+    new Dotenv()
   ],
   module: {
     loaders: [
