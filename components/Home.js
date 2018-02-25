@@ -27,7 +27,7 @@ class Home extends React.Component {
       code: code,
     }).then((response) => {
       console.log(response)
-      this.setState({repo_options: response.data})
+      this.setState({ repo_options: response.data })
     })
   }
 
