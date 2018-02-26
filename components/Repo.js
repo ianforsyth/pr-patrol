@@ -18,7 +18,7 @@ class Repo extends React.Component {
 
   handleClick() {
     PatrolService.create({
-      repo_id: this.props.id,
+      repo_id: this.props.repo.id,
       regex: this.state.newRegex
     }).then((data) => {
       console.log(data)
@@ -26,11 +26,9 @@ class Repo extends React.Component {
   }
 
   render() {
-    let repo = this.props.repo
-
     return (
       <div>
-        <div>{repo.name}</div>
+        <div>{this.props.repo.name}</div>
         <input type="text" value={this.state.newRegex} onChange={this.handleChange}></input>
         <button onClick={this.handleClick}>Add</button>
       </div>

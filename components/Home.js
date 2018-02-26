@@ -63,7 +63,6 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello World</h1>
         <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>Login with github</a>
         <button onClick={this.fetchGithubRepos}>Add Repo</button>
           {
