@@ -1,4 +1,5 @@
 import axios from 'axios'
+import cookie from 'react-cookies'
 
 class PrPatrolNetworking {
   constructor() {
@@ -6,22 +7,31 @@ class PrPatrolNetworking {
       baseURL: process.env.API_URL,
       headers: { common: {} }
     })
+
+    this.networking.defaults.headers.common['X-Key-Inflection'] = 'camel'
+
+    // Need this in an interceptor because sometimes it gets added/updated in login steps
+    this.networking.interceptors.request.use((config) => {
+      config.headers['Authorization'] = cookie.load('pr_patrol')
+      return config
+    })
+
   }
 
   sendRequest(request) {
     return request.then((response) => {
-      return this.unwrapResponse(response)
+      return response.data
     }).catch((response) => {
       Promise.reject(response.data)
     })
   }
 
-  unwrapResonse(response) {
-    return response.data
+  fetch() {
+    return this.sendRequest(this.networking.get(this.fetchPath()))
   }
 
   create(obj) {
-    return this.request(this.networking.post(this.createPath(), obj))
+    return this.sendRequest(this.networking.post(this.createPath(), obj))
   }
 }
 

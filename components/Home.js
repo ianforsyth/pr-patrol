@@ -5,50 +5,70 @@ import cookie from 'react-cookies'
 
 import Repo from './Repo'
 
+import UserService from '../networking/UserService'
+import RepoService from '../networking/RepoService'
+import GithubRepoService from '../networking/GithubRepoService'
+
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       repo_options: [],
-      repos: []
+      repos: [],
+      userIsAuthorized: typeof cookie.load('pr_patrol') != 'undefined',
+      githubRedirectCode: queryString.parse(this.props.location.search).code
     }
-  }
 
+    this.fetchGithubRepos = this.fetchGithubRepos.bind(this)
+  }
 
   componentWillMount() {
-    let params = queryString.parse(this.props.location.search)
-    if(params.code) {
-      this.retrieveAuthToken(params.code)
+    if(this.state.userIsAuthorized) {
+      this.fetchReposAndPatrols()
+    } else if(this.state.githubRedirectCode) {
+      this.getUser()
     }
   }
 
-  retrieveAuthToken(code) {
-    axios.post(`${process.env.API_URL}/user`, {
-      code: code,
-    }).then((response) => {
-      console.log(response)
-      this.setState({ repo_options: response.data })
+  fetchReposAndPatrols() {
+    RepoService.fetch().then((data) => {
+      this.setState({ repos: data })
     })
   }
 
-  addRepo(id, name) {
-    axios.post(`${process.env.API_URL}/user_repo`, {
+  fetchGithubRepos() {
+    GithubRepoService.fetch().then((data) => {
+      this.setState({ repo_options: data })
+    })
+  }
+
+  getUser() {
+    UserService.create({
+      code: this.state.githubRedirectCode,
+    }).then((data) => {
+      cookie.save('pr_patrol', data.appAuthToken)
+      this.fetchReposAndPatrols() //single responsibility dude!
+    })
+  }
+
+  createRepo(id, name) {
+    RepoService.create({
       github_id: id,
       name: name
-    }).then((response) => {
+    }).then(() => {
       this.setState({ repos: this.state.repos.concat([{ id, name }]) })
     })
   }
 
   render() {
-    console.log(this.state.repo_options)
     return (
       <div>
         <h1>Hello World</h1>
         <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>Login with github</a>
+        <button onClick={this.fetchGithubRepos}>Add Repo</button>
           {
             this.state.repo_options.map((repo) => {
-              return <div onClick={() => this.addRepo(repo.id, repo.full_name)} key={repo.id}>{repo.full_name}</div>
+              return <div onClick={() => this.createRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
             })
           }
           {
