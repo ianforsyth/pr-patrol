@@ -7,7 +7,8 @@ class Patrol extends React.Component {
 
     this.state = {
       isEditing: false,
-      patrolRegex: this.props.patrol.regex
+      originalRegex: this.props.patrol.regex,
+      newRegex: this.props.patrol.regex
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -18,7 +19,7 @@ class Patrol extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ patrolRegex: e.target.value })
+    this.setState({ newRegex: e.target.value })
   }
 
   handleEditClick() {
@@ -26,11 +27,16 @@ class Patrol extends React.Component {
   }
 
   handleCancelClick() {
-    this.setState({ isEditing: false, patrolRegex: this.props.patrol.regex })
+    this.setState({ isEditing: false, newRegex: this.state.originalRegex })
   }
 
   handleUpdateClick() {
-    this.setState({ isEditing: false })
+    PatrolService.update({
+      id: this.props.patrol.id,
+      regex: this.state.newRegex
+    }).then((data) => {
+      this.setState({ isEditing: false, newRegex: data.regex, originalRegex: data.regex })
+    })
   }
 
   handleDeleteClick() {
@@ -45,7 +51,7 @@ class Patrol extends React.Component {
         {
           !this.state.isEditing &&
           <div>
-            {this.state.patrolRegex}
+            {this.state.newRegex}
             <button onClick={this.handleEditClick}>Edit</button>
             <button onClick={this.handleDeleteClick}>Delete</button>
           </div>
@@ -53,7 +59,7 @@ class Patrol extends React.Component {
         {
           this.state.isEditing &&
           <div>
-            <input type='text' value={this.state.patrolRegex} onChange={this.handleChange}></input>
+            <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
             <button onClick={this.handleUpdateClick}>Update</button>
             <button onClick={this.handleCancelClick}>Cancel</button>
           </div>

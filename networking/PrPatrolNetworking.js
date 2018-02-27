@@ -34,6 +34,10 @@ class PrPatrolNetworking {
     return this.sendRequest(this.networking.post(this.createPath(), obj))
   }
 
+  update(obj) {
+    return this.sendRequest(this.networking.put(this.updatePath(obj), obj))
+  }
+
   delete(id) {
     return this.sendRequest(this.networking.delete(this.deletePath(id)))
   }
