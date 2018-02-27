@@ -2,12 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import queryString from 'query-string'
 import cookie from 'react-cookies'
-
 import Repo from './Repo'
-
 import UserService from '../networking/UserService'
 import RepoService from '../networking/RepoService'
 import GithubRepoService from '../networking/GithubRepoService'
+import _ from 'lodash'
 
 class Home extends React.Component {
   constructor(props) {
@@ -38,7 +37,8 @@ class Home extends React.Component {
 
   fetchGithubRepos() {
     GithubRepoService.fetch().then((data) => {
-      this.setState({ repo_options: data })
+      let existingRepoGithubIds = _.map(this.state.repos, 'githubId')
+      this.setState({ repo_options: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)) })
     })
   }
 
@@ -51,7 +51,7 @@ class Home extends React.Component {
     })
   }
 
-  createRepo(id, name) {
+  handleCreateRepo(id, name) {
     RepoService.create({
       github_id: id,
       name: name
@@ -67,7 +67,7 @@ class Home extends React.Component {
         <button onClick={this.fetchGithubRepos}>Add Repo</button>
           {
             this.state.repo_options.map((repo) => {
-              return <div onClick={() => this.createRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+              return <div onClick={() => this.handleCreateClick(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
             })
           }
           {
