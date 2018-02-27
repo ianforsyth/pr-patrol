@@ -2,12 +2,17 @@ import React from 'react'
 import axois from 'axios'
 import Patrol from './Patrol'
 import PatrolService from '../networking/PatrolService'
+import _ from 'lodash'
 
 class Repo extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { newRegex: '' }
+    this.state = {
+      newRegex: '',
+      patrols: this.props.repo.patrols
+    }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
@@ -25,12 +30,21 @@ class Repo extends React.Component {
     })
   }
 
+  handleDeletePatrol(id) {
+    this.setState({ patrols: _.remove(this.state.patrols, (patrol) => patrol.id == id) })
+  }
+
   render() {
     return (
-      <div>
-        <div>{this.props.repo.name}</div>
-        <input type="text" value={this.state.newRegex} onChange={this.handleChange}></input>
+      <div className='repo'>
+        <div className='repo-title'>{this.props.repo.name}</div>
+        <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
         <button onClick={this.handleClick}>Add</button>
+        {
+          this.state.patrols.map((patrol, index) => {
+            return <Patrol patrol={patrol} onDelete={() => this.handleDeletePatrol(patrol.id)}></Patrol>
+          })
+        }
       </div>
     )
   }

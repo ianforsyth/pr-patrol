@@ -33,6 +33,10 @@ class PrPatrolNetworking {
   create(obj) {
     return this.sendRequest(this.networking.post(this.createPath(), obj))
   }
+
+  delete(id) {
+    return this.sendRequest(this.networking.delete(this.deletePath(id)))
+  }
 }
 
 export default PrPatrolNetworking
