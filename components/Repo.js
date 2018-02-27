@@ -38,6 +38,7 @@ class Repo extends React.Component {
     return (
       <div className='repo'>
         <div className='repo-title'>{this.props.repo.name}</div>
+        <button onClick={this.props.onDelete}>Delete</button>
         <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
         <button onClick={this.handleClick}>Add</button>
         {

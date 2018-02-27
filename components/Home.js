@@ -55,8 +55,14 @@ class Home extends React.Component {
     RepoService.create({
       github_id: id,
       name: name
-    }).then(() => {
-      this.setState({ repos: this.state.repos.concat([{ id, name }]) })
+    }).then((data) => {
+      this.setState({ repos: _.concat(this.state.repos, data) })
+    })
+  }
+
+  handleDeleteRepo(repo) {
+    RepoService.delete(repo.id).then(() => {
+      this.setState({ repos: _.without(this.state.repos, repo) })
     })
   }
 
@@ -67,12 +73,12 @@ class Home extends React.Component {
         <button onClick={this.fetchGithubRepos}>Add Repo</button>
           {
             this.state.repo_options.map((repo) => {
-              return <div onClick={() => this.handleCreateClick(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+              return <div onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
             })
           }
           {
             this.state.repos.map((repo) => {
-              return <Repo key={repo.id} repo={repo}></Repo>
+              return <Repo key={repo.id} repo={repo} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
             })
           }
       </div>
