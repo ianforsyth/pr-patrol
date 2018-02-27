@@ -26,7 +26,7 @@ class Repo extends React.Component {
       repo_id: this.props.repo.id,
       regex: this.state.newRegex
     }).then((data) => {
-      console.log(data)
+      this.setState({ patrols: _.concat(this.state.patrols, data) })
     })
   }
 
@@ -42,7 +42,7 @@ class Repo extends React.Component {
         <button onClick={this.handleClick}>Add</button>
         {
           this.state.patrols.map((patrol, index) => {
-            return <Patrol patrol={patrol} onDelete={() => this.handleDeletePatrol(patrol.id)}></Patrol>
+            return <Patrol patrol={patrol} key={patrol.id} onDelete={() => this.handleDeletePatrol(patrol.id)}></Patrol>
           })
         }
       </div>
