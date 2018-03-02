@@ -1,0 +1,18 @@
+$blue: #3B729F;
+
+.button {
+  border-radius: 3px;
+  border: 0;
+  background: $blue;
+  color: white;
+  cursor: pointer;
+  outline: 0;
+  font-size: 16px;
+  padding: 5px 10px;
+
+  &:disabled {
+    background: gray;
+    cursor: default;
+  }
+}
+

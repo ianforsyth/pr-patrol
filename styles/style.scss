@@ -1,6 +1,76 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
 
 @import 'variables.scss';
+@import 'button.scss';
 
 body {
-  background: $blue;
+  background: white;
+  font-family: 'Lato';
+  background: #F5F5F5;
 }
+
+.home {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.logo {
+  width: 225px;
+}
+
+.title {
+}
+
+.subtitle {
+}
+
+.repo {
+  font-size: 16px;
+  max-width: 500px;
+  width: 100%;
+  margin: 20px auto;
+  border: 1px solid black;
+  border-radius: 3px;
+  background: white;
+}
+
+.repo-head {
+  padding: 10px 10px;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.repo-title {
+  width: 80%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.repo-actions {
+  width: 20%;
+  display: inline-block;
+  text-align: right;
+}
+
+.actionIcon {
+  display: none;
+  color: gray;
+  cursor: pointer;
+  margin-left: 8px;
+
+  *:hover > & {
+    display: inline;
+  }
+}
+
+.patrol {
+  border-top: 1px solid black;
+  padding: 10px;
+}
+
+.patrol-regex {
+  text-align: left;
+}
+
+

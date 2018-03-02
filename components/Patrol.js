@@ -48,22 +48,26 @@ class Patrol extends React.Component {
   render() {
     return (
       <div className='patrol'>
-        {
-          !this.state.isEditing &&
-          <div>
-            {this.state.newRegex}
-            <button onClick={this.handleEditClick}>Edit</button>
-            <button onClick={this.handleDeleteClick}>Delete</button>
-          </div>
-        }
-        {
-          this.state.isEditing &&
-          <div>
-            <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
-            <button onClick={this.handleUpdateClick}>Update</button>
-            <button onClick={this.handleCancelClick}>Cancel</button>
-          </div>
-        }
+        <div className='patrol-regex'>
+          {
+            !this.state.isEditing &&
+            <div>
+              {this.state.newRegex}
+              <span className='fas fa-pencil-alt actionIcon repo-delete' onClick={this.handleEditClick}></span>
+              <span className='far fa-trash-alt actionIcon repo-delete' onClick={this.handleDeleteClick}></span>
+            </div>
+          }
+        </div>
+        <div className='patrol-actions'>
+          {
+            this.state.isEditing &&
+            <div>
+              <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
+              <button onClick={this.handleUpdateClick}>Update</button>
+              <button onClick={this.handleCancelClick}>Cancel</button>
+            </div>
+          }
+        </div>
       </div>
     )
   }

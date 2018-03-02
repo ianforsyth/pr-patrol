@@ -7,6 +7,7 @@ import UserService from '../networking/UserService'
 import RepoService from '../networking/RepoService'
 import GithubRepoService from '../networking/GithubRepoService'
 import _ from 'lodash'
+import Pete from '../img/pete.svg'
 
 class Home extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Home extends React.Component {
       code: this.state.githubRedirectCode,
     }).then((data) => {
       cookie.save('pr_patrol', data.appAuthToken)
+      this.setState({ userIsAuthorized: true })
       this.fetchReposAndPatrols() //single responsibility dude!
     })
   }
@@ -56,7 +58,10 @@ class Home extends React.Component {
       github_id: id,
       name: name
     }).then((data) => {
-      this.setState({ repos: _.concat(this.state.repos, data) })
+      this.setState({
+        repos: _.concat([data], this.state.repos),
+        repo_options: []
+      })
     })
   }
 
@@ -68,19 +73,35 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>Login with github</a>
-        <button onClick={this.fetchGithubRepos}>Add Repo</button>
-          {
-            this.state.repo_options.map((repo) => {
-              return <div onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
-            })
-          }
-          {
-            this.state.repos.map((repo) => {
-              return <Repo key={repo.id} repo={repo} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
-            })
-          }
+      <div className='home'>
+        <div className='navigation'>
+          <button className='button'>Sign Out</button>
+          <button className='button'>Contact</button>
+        </div>
+        <img className='logo' src={Pete}></img>
+        <h1 className='title'>PR Patrol</h1>
+        <h2 className='subtitle'>Monitor code that matters to you</h2>
+        { !this.state.userIsAuthorized &&
+          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>
+            <button className='button'>Sign In With Github</button>
+          </a>
+        }
+        { this.state.userIsAuthorized &&
+          <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
+        }
+        {
+          this.state.repo_options.map((repo) => {
+            return <div onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+          })
+        }
+        {
+          this.state.repos.map((repo) => {
+            return <Repo key={repo.id} repo={repo} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
+          })
+        }
+        <div className='footer'>
+          <a href='mailto:ian@ianforsyth.com'>Contact Us</a>
+        </div>
       </div>
     )
   }
