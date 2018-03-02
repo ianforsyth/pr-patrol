@@ -16,7 +16,7 @@ class Home extends React.Component {
       repo_options: [],
       repos: [],
       userIsAuthorized: typeof cookie.load('pr_patrol') != 'undefined',
-      githubRedirectCode: queryString.parse(this.props.location.search).code
+      githubRedirectCode: queryString.parse(this.props.location.search).code,
     }
 
     this.fetchGithubRepos = this.fetchGithubRepos.bind(this)
@@ -60,7 +60,8 @@ class Home extends React.Component {
     }).then((data) => {
       this.setState({
         repos: _.concat([data], this.state.repos),
-        repo_options: []
+        repo_options: [],
+        lastRepoIdAdded: data.id
       })
     })
   }
@@ -89,14 +90,19 @@ class Home extends React.Component {
         { this.state.userIsAuthorized &&
           <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
         }
-        {
-          this.state.repo_options.map((repo) => {
-            return <div onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
-          })
+        { !!this.state.repo_options.length &&
+          <div className='repoList'>
+            {
+              this.state.repo_options.map((repo) => {
+                return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+              })
+            }
+          </div>
         }
         {
           this.state.repos.map((repo) => {
-            return <Repo key={repo.id} repo={repo} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
+            const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
+            return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
           })
         }
         <div className='footer'>

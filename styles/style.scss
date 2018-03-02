@@ -25,20 +25,19 @@ body {
 .subtitle {
 }
 
-.repo {
+.repo, .repoList {
   font-size: 16px;
   max-width: 500px;
   width: 100%;
   margin: 20px auto;
-  border: 1px solid black;
   border-radius: 3px;
   background: white;
+  border: 1px solid black;
 }
 
 .repo-head {
   padding: 10px 10px;
   text-align: left;
-  border-bottom: 1px solid black;
 }
 
 .repo-title {
@@ -64,9 +63,17 @@ body {
   }
 }
 
-.patrol {
-  border-top: 1px solid black;
+.patrol, .repoList-repo {
+  border-bottom: 1px solid black;
   padding: 10px;
+
+  &:last-of-type {
+    border-width: 0
+  }
+}
+
+.repoList-repo {
+  cursor: pointer
 }
 
 .patrol-regex {

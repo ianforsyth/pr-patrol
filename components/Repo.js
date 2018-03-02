@@ -11,7 +11,7 @@ class Repo extends React.Component {
     this.state = {
       newRegex: '',
       patrols: this.props.repo.patrols,
-      isAddingPatrol: false
+      isAddingPatrol: this.props.preOpenAdd
     }
 
     this.handleChange = this.handleChange.bind(this)
