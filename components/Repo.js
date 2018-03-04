@@ -29,7 +29,7 @@ class Repo extends React.Component {
       repo_id: this.props.repo.id,
       regex: this.state.newRegex
     }).then((data) => {
-      this.setState({ patrols: _.concat([data], this.state.patrols, data) })
+      this.setState({ patrols: _.concat([data], this.state.patrols) })
     })
   }
 
