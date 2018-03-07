@@ -1,0 +1,44 @@
+.steps {
+  margin-top: 100px;
+  padding: 80px $body-padding;
+  overflow: hidden;
+  position: relative;
+}
+
+.steps-bg {
+  width: 150%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 50%;
+  background: $slate-dark;
+}
+
+.steps-title {
+  color: $gray;
+  font-size: 36px;
+  position: relative;
+}
+
+.step {
+  position: relative;
+  width: 300px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 50px 20px;
+  background: $slate-light;
+  padding: 20px;
+}
+
+.step-title {
+  color: $gray;
+  font-size: 24px;
+}
+
+.step-description {
+  color: $gray;
+  margin-top: 100px;
+  font-size: 18px;
+}

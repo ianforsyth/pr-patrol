@@ -1,18 +1,46 @@
-$blue: #3B729F;
-
 .button {
+  @include blueGradient;
   border-radius: 3px;
   border: 0;
-  background: $blue;
   color: white;
   cursor: pointer;
   outline: 0;
-  font-size: 16px;
-  padding: 5px 10px;
+  font-size: 20px;
+  padding: 10px 25px;
+  overflow: hidden;
+  position: relative;
 
   &:disabled {
     background: gray;
     cursor: default;
   }
+
+  span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.button:after {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: -10px;
+    width: 0%;
+    height: 100%;
+    transform: skewX(-20deg);
+    background-color: rgba(255,255,255,0.4);
+    transition: none;
+}
+
+.button:hover:after {
+    width: 120%;
+    background-color: rgba(255,255,255,0);
+    transition: all 0.45s ease-out;
+}
+
+.buttonIcon {
+  font-size: 32px;
+  margin-right: 10px;
 }
 

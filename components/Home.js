@@ -74,39 +74,69 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className='home'>
-        <div className='navigation'>
-          <button className='button'>Sign Out</button>
-          <button className='button'>Contact</button>
-        </div>
-        <img className='logo' src={Pete}></img>
-        <h1 className='title'>PR Patrol</h1>
-        <h2 className='subtitle'>Monitor code that matters to you</h2>
-        { !this.state.userIsAuthorized &&
-          <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>
-            <button className='button'>Sign In With Github</button>
-          </a>
-        }
+      <div>
         { this.state.userIsAuthorized &&
-          <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
-        }
-        { !!this.state.repo_options.length &&
-          <div className='repoList'>
-            {
-              this.state.repo_options.map((repo) => {
-                return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
-              })
-            }
+          <div className='nav u-clearfix'>
+            <h1 className='nav-title u-floatLeft'>PR Patrol</h1>
+            <a className='link u-floatRight'>Sign Out</a>
+            <a className='link u-floatRight'>Contact</a>
           </div>
         }
-        {
-          this.state.repos.map((repo) => {
-            const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
-            return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
-          })
-        }
-        <div className='footer'>
-          <a href='mailto:ian@ianforsyth.com'>Contact Us</a>
+        <div className='home'>
+          <h1 className='title'>PR Patrol</h1>
+          <h2 className='subtitle'>Monitor code that matters to you</h2>
+          <div className='logo'>
+            <img className='logo-img' src={Pete}></img>
+            <div className='logo-shadow'></div>
+          </div>
+          { !this.state.userIsAuthorized &&
+            <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>
+              <button className='button'>
+                <span className="fab fa-github buttonIcon"></span>
+                <span>Sign In With Github</span>
+              </button>
+            </a>
+          }
+          { this.state.userIsAuthorized &&
+            <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
+          }
+          { !this.state.userIsAuthorized &&
+            <div className='steps'>
+              <div className='steps-bg'></div>
+              <h3 className='steps-title'>Here's how it works...</h3>
+              <div className='step'>
+                <h4 className='step-title'>1. Install the GitHub App</h4>
+                <p className='step-description'>
+                  Head over to the GitHub marketplace and
+                  <a className='link' href='https://github.com/apps/pr-patrol' target='_blank'> install </a>
+                  the PR Patrol app.
+                </p>
+              </div>
+              <div className='step'>
+                <h4 className='step-title'>2. Set up patrols</h4>
+                <p className='step-description'>Choose the repos you want to patrol and the files you want alerts for.</p>
+              </div>
+              <div className='step'>
+                <h4 className='step-title'>3. Get alerts</h4>
+                <p className='step-description'>You get an email anytime someone opens a PR to change the code you're monitoring</p>
+              </div>
+            </div>
+          }
+          { !!this.state.repo_options.length &&
+            <div className='repoList'>
+              {
+                this.state.repo_options.map((repo) => {
+                  return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+                })
+              }
+            </div>
+          }
+          {
+            this.state.repos.map((repo) => {
+              const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
+              return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
+            })
+          }
         </div>
       </div>
     )
