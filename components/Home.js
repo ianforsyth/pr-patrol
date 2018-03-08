@@ -2,6 +2,8 @@ import React from 'react'
 import queryString from 'query-string'
 import cookie from 'react-cookies'
 import UserService from '../networking/UserService'
+
+import Spinner from './Spinner'
 import LandingPage from './LandingPage'
 import AppPage from './AppPage'
 
@@ -9,9 +11,13 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
 
+    const githubCode = queryString.parse(this.props.location.search).code
+    const userIsAuthorized = typeof cookie.load('pr_patrol') != 'undefined'
+
     this.state = {
-      userIsAuthorized: typeof cookie.load('pr_patrol') != 'undefined',
-      githubRedirectCode: queryString.parse(this.props.location.search).code,
+      userIsAuthorized: userIsAuthorized,
+      githubRedirectCode: githubCode,
+      isLoading: (!!githubCode && !userIsAuthorized),
     }
   }
 
@@ -21,7 +27,9 @@ class Home extends React.Component {
         code: this.state.githubRedirectCode,
       }).then((data) => {
         cookie.save('pr_patrol', data.appAuthToken)
-        this.setState({ userIsAuthorized: true })
+        this.setState({ userIsAuthorized: true, isLoading: false })
+      }).catch((error) => {
+        this.setState({ isLoading: false })
       })
     }
   }
@@ -29,8 +37,9 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        { !this.state.userIsAuthorized && <LandingPage></LandingPage> }
-        { this.state.userIsAuthorized && <AppPage></AppPage> }
+        <Spinner isVisible={this.state.isLoading}/>
+        { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
+        { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>
         </div>
