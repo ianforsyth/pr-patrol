@@ -5,12 +5,12 @@ const Dotenv = require('dotenv-webpack')
 module.exports = {
   entry: path.resolve(__dirname, 'app'),
   output: {
-    path: __dirname + '/dist',
+    path: __dirname + '/docs',
     publicPath: '/',
     filename: 'bundle.js'
   },
   plugins: [
-    new Dotenv()
+    new Dotenv(),
   ],
   module: {
     loaders: [

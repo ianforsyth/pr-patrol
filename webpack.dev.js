@@ -4,6 +4,6 @@ const path = require('path')
 
 module.exports = merge(common, {
   devServer: {
-    contentBase: path.resolve(__dirname, 'public')
+    contentBase: path.resolve(__dirname, 'docs')
   },
 })
