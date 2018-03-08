@@ -58,7 +58,9 @@ class Repo extends React.Component {
             <span className='far fa-trash-alt actionIcon repo-delete' onClick={this.props.onDelete}></span>
           </div>
           <div className='repo-actions'>
-            <button className='button repo-addPatrol' disabled={this.state.isAddingPatrol} onClick={this.handleAddPatrolClick}>Add Patrol</button>
+            { !this.state.isAddingPatrol &&
+              <button className='button repo-addPatrol' onClick={this.handleAddPatrolClick}>Add Patrol</button>
+            }
           </div>
         </div>
         { this.state.isAddingPatrol &&

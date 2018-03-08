@@ -10,11 +10,6 @@
   overflow: hidden;
   position: relative;
 
-  &:disabled {
-    background: gray;
-    cursor: default;
-  }
-
   span {
     display: inline-block;
     vertical-align: middle;
