@@ -16,7 +16,7 @@ class LandingPage extends React.Component {
           <div className='logo-shadow'></div>
         </div>
         <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>
-          <button className='button'>
+          <button className='button button--shine'>
             <span className="fab fa-github buttonIcon"></span>
             <span>Sign In With Github</span>
           </button>

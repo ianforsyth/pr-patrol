@@ -12,42 +12,33 @@ class AppPage extends React.Component {
     super(props)
 
     this.state = {
-      repo_options: [],
+      repoOptions: [],
       repos: [],
     }
 
     this.fetchGithubRepos = this.fetchGithubRepos.bind(this)
+    this.handleCancelRepoClick = this.handleCancelRepoClick.bind(this)
   }
 
   componentWillMount() {
     this.fetchReposAndPatrols()
   }
 
-
   fetchReposAndPatrols() {
     RepoService.fetch().then((data) => {
-      this.setState({ repos: data })
+      data.length ? this.setState({ repos: data }) : this.fetchGithubRepos()
     })
   }
 
   fetchGithubRepos() {
     GithubRepoService.fetch().then((data) => {
       let existingRepoGithubIds = _.map(this.state.repos, 'githubId')
-      this.setState({ repo_options: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)) })
+      this.setState({ repoOptions: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)) })
     })
   }
 
-  fetchReposAndPatrols() {
-    RepoService.fetch().then((data) => {
-      this.setState({ repos: data })
-    })
-  }
-
-  fetchGithubRepos() {
-    GithubRepoService.fetch().then((data) => {
-      let existingRepoGithubIds = _.map(this.state.repos, 'githubId')
-      this.setState({ repo_options: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)) })
-    })
+  handleCancelRepoClick() {
+    this.setState({ repoOptions: [] })
   }
 
   handleCreateRepo(id, name) {
@@ -57,7 +48,7 @@ class AppPage extends React.Component {
     }).then((data) => {
       this.setState({
         repos: _.concat([data], this.state.repos),
-        repo_options: [],
+        repoOptions: [],
         lastRepoIdAdded: data.id
       })
     })
@@ -83,14 +74,20 @@ class AppPage extends React.Component {
         <div className='metrics'>
         </div>
         <div className='appBody'>
-          <button className='button addRepo' onClick={this.fetchGithubRepos}>Add Repo</button>
-          { !!this.state.repo_options.length &&
-            <div className='repoList'>
-              {
-                this.state.repo_options.map((repo) => {
-                  return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
-                })
-              }
+          { !this.state.repoOptions.length &&
+            <button className='button addRepo' onClick={this.fetchGithubRepos}>Add Repo</button>
+          }
+          { !!this.state.repoOptions.length &&
+            <div>
+              <h5 className='subtitle u-alignCenter'>Choose a repo you want to monitor</h5>
+              <div className='repoList'>
+                {
+                  this.state.repoOptions.map((repo) => {
+                    return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+                  })
+                }
+              </div>
+              <button className='button button--cancel cancelRepo' onClick={this.handleCancelRepoClick}>Cancel</button>
             </div>
           }
           {

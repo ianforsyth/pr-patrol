@@ -1,24 +1,4 @@
-@mixin shine-hover {
-  &:after {
-      content: "";
-      position: absolute;
-      top: 0px;
-      left: -10px;
-      width: 0%;
-      height: 100%;
-      transform: skewX(-20deg);
-      background-color: rgba(255,255,255,0.4);
-      transition: none;
-  }
-
-  &:hover:after {
-      width: 120%;
-      background-color: rgba(255,255,255,0);
-      transition: all 0.45s ease-out;
-  }
-}
 .button {
-  @include shine-hover;
   @include blueGradient;
   border-radius: 3px;
   border: 0;
@@ -39,13 +19,19 @@
     display: inline-block;
     vertical-align: middle;
   }
-
-
 }
 
 
 .buttonIcon {
   font-size: 32px;
   margin-right: 10px;
+}
+
+.button--shine {
+  @include shine-hover;
+}
+
+.button--cancel {
+  @include redGradient;
 }
 
