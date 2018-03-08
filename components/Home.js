@@ -7,7 +7,7 @@ import UserService from '../networking/UserService'
 import RepoService from '../networking/RepoService'
 import GithubRepoService from '../networking/GithubRepoService'
 import _ from 'lodash'
-import Pete from '../img/pete.svg'
+import LandingPage from './LandingPage'
 
 class Home extends React.Component {
   constructor(props) {
@@ -82,65 +82,25 @@ class Home extends React.Component {
             <a className='link u-floatRight'>Contact</a>
           </div>
         }
-        <div className='home'>
-          <h1 className='title'>PR Patrol</h1>
-          <h2 className='subtitle'>Monitor code that matters to you</h2>
-          <div className='logo'>
-            <img className='logo-img' src={Pete}></img>
-            <div className='logo-shadow'></div>
+        { !this.state.userIsAuthorized && <LandingPage></LandingPage>}
+        { this.state.userIsAuthorized &&
+          <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
+        }
+        { !!this.state.repo_options.length &&
+          <div className='repoList'>
+            {
+              this.state.repo_options.map((repo) => {
+                return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
+              })
+            }
           </div>
-          { !this.state.userIsAuthorized &&
-            <a href={`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`}>
-              <button className='button'>
-                <span className="fab fa-github buttonIcon"></span>
-                <span>Sign In With Github</span>
-              </button>
-            </a>
-          }
-          { this.state.userIsAuthorized &&
-            <button className='button' onClick={this.fetchGithubRepos}>Add Repo</button>
-          }
-          { !this.state.userIsAuthorized &&
-            <div className='steps'>
-              <div className='steps-bg'></div>
-              <h3 className='steps-title'>Here's how it works</h3>
-              <div className='step'>
-                <h4 className='step-title'>1. Install the GitHub App</h4>
-                <div className='fas fa-cloud-download-alt step-icon'></div>
-                <p className='step-description'>
-                  Head over to the
-                  <a className='link' href='https://github.com/apps/pr-patrol' target='_blank'> GitHub marketplace </a>
-                  and install the PR Patrol app.
-                </p>
-              </div>
-              <div className='step'>
-                <h4 className='step-title'>2. Set up patrols</h4>
-                <div className='fas fa-tasks step-icon'></div>
-                <p className='step-description'>Choose the repos you want to patrol and the files you want alerts for.</p>
-              </div>
-              <div className='step'>
-                <h4 className='step-title'>3. Get alerts</h4>
-                <div className='fas fa-bullhorn step-icon'></div>
-                <p className='step-description'>You get an email when a PR opens and your code is in the diff.</p>
-              </div>
-            </div>
-          }
-          { !!this.state.repo_options.length &&
-            <div className='repoList'>
-              {
-                this.state.repo_options.map((repo) => {
-                  return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
-                })
-              }
-            </div>
-          }
-          {
-            this.state.repos.map((repo) => {
-              const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
-              return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
-            })
-          }
-        </div>
+        }
+        {
+          this.state.repos.map((repo) => {
+            const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
+            return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
+          })
+        }
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>
         </div>
