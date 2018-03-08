@@ -1,7 +1,5 @@
 const webpack = require('webpack')
 const path = require('path')
-const Dotenv = require('dotenv-webpack')
-const WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'app'),
@@ -10,10 +8,6 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  plugins: [
-    new Dotenv(),
-    new WriteFilePlugin
-  ],
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
