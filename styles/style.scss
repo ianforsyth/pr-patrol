@@ -19,6 +19,7 @@ $body-padding: 20px;
 @import 'button.scss';
 @import 'logo.scss';
 @import 'steps.scss';
+@import 'spinner.scss';
 
 * {
   margin: 0;
@@ -57,10 +58,16 @@ body {
 }
 
 .appBody {
-  margin: 0 auto;
+  margin: 30px auto;
   width: 100%;
   max-width: 600px;
-  margin-top: 30px;
+}
+
+.noRepos-icon {
+  @include blueGradient;
+  @include clipText;
+  font-size: 96px;
+  margin: 30px 0;
 }
 
 .addRepo,
