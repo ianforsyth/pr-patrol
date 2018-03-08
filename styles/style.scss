@@ -34,10 +34,24 @@ a {
   cursor: pointer;
 }
 
-body {
+html,
+body,
+#app {
+  height: 100%;
+}
+
+.reactBody {
   @include bg;
   font-family: 'Lato';
   color: $gray;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
 }
 
 .home {
@@ -162,6 +176,7 @@ body {
   padding: 10px 0;
   text-align: center;
   background: $slate-dark;
+  flex-shrink: 0;
 
   span {
     margin: 0 2px;

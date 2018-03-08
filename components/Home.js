@@ -36,10 +36,12 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <Spinner isVisible={this.state.isLoading}/>
-        { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
-        { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
+      <div className='reactBody'>
+        <div className='content'>
+          <Spinner isVisible={this.state.isLoading}/>
+          { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
+          { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
+        </div>
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>
         </div>
