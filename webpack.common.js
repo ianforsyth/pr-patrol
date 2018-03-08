@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'app'),
@@ -11,6 +12,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv(),
+    new WriteFilePlugin
   ],
   module: {
     loaders: [
