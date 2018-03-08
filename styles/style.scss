@@ -6,13 +6,13 @@
 .u-floatLeft { float: left }
 .u-clearfix:after { content: ""; display: table; clear: both; }
 
-
 $slate: #252F3A;
 $slate-light: lighten($slate, 3%);
 $slate-dark: darken($slate, 2%);
 $gray: #EAEAEA;
 $aqua: #67E2E5;
 $red: #DD3B34;
+$black: black;
 
 $body-padding: 20px;
 
@@ -44,6 +44,7 @@ $body-padding: 20px;
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 body {
@@ -57,12 +58,27 @@ body {
   text-align: center;
 }
 
-.nav {
-  border-bottom: 1px solid $gray;
+.signOut {
+  text-align: right;
+  padding: 10px 20px 0;
+  background: $slate-dark;
 }
 
-.nav-title {
-  font-size: 16px;
+.metrics {
+  background: $slate-dark;
+  height: 200px;
+  box-shadow:  0px 2px 5px 0px rgba(0,0,0,0.3);
+}
+
+.appBody {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 30px;
+}
+
+.addRepo {
+  width: 100%;
 }
 
 .link {
@@ -138,7 +154,7 @@ body {
 .footer {
   font-size: 14px;
   color: $gray;
-  padding-bottom: 20px;
+  padding: 10px 0;
   text-align: center;
   background: $slate-dark;
 
