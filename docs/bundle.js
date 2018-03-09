@@ -1276,7 +1276,7 @@ var PrPatrolNetworking = function () {
     _classCallCheck(this, PrPatrolNetworking);
 
     this.networking = _axios2.default.create({
-      baseURL: "http://prpatrol.com",
+      baseURL: "http://api.prpatrol.com",
       headers: { common: {} }
     });
 
