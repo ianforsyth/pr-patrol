@@ -94,11 +94,6 @@ body,
   width: 100%;
 }
 
-.cancelRepo {
-  border-radius: 0 0 3px 3px;
-  display: block;
-}
-
 
 .link {
   color: $aqua;
@@ -122,12 +117,12 @@ body,
   border-radius: 3px;
   background: white;
   margin-top: 30px;
+  overflow: hidden;
 }
 
 .repoList {
   margin-top: 20px;
   max-height: 450px;
-  border-radius: 3px 3px 0 0;
   overflow: auto;
 }
 
@@ -141,6 +136,8 @@ body,
   width: 80%;
   display: inline-block;
   vertical-align: middle;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .repo-actions {
