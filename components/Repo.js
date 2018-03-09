@@ -62,7 +62,7 @@ class Repo extends React.Component {
             </p>
             <PatrolInput
               onCancel={this.handleCancelClick}
-              onAdd={this.handleAddClick}
+              onSubmit={this.handleAddClick}
               repoId={this.props.repo.id}
               value={this.state.newRegex}>
             </PatrolInput>

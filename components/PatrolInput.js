@@ -7,12 +7,12 @@ class PatrolInput extends React.Component {
 
     this.state = {
       regex: this.props.value || '',
-      idEditing: !!this.props.value,
+      isEditing: !!this.props.value,
       isValid: true
     }
 
     this.handleChange = this.handleChange.bind(this)
-    this.handleAddClick = this.handleAddClick.bind(this)
+    this.handleSubmitClick = this.handleSubmitClick.bind(this)
   }
 
   handleChange(e) {
@@ -22,18 +22,27 @@ class PatrolInput extends React.Component {
     })
   }
 
-  handleAddClick() {
+  handleSubmitClick() {
     if(!this.state.regex) {
       this.setState({ isValid: false })
       return
     }
 
-    PatrolService.create({
-      repo_id: this.props.repoId,
-      regex: this.state.regex
-    }).then((data) => {
-      this.props.onAdd(data)
-    })
+    if(this.state.isEditing) {
+      PatrolService.update({
+        id: this.props.patrolId,
+        regex: this.state.regex
+      }).then((data) => {
+        this.props.onSubmit(data)
+      })
+    } else {
+      PatrolService.create({
+        repo_id: this.props.repoId,
+        regex: this.state.regex
+      }).then((data) => {
+        this.props.onSubmit(data)
+      })
+    }
   }
 
 
@@ -43,7 +52,7 @@ class PatrolInput extends React.Component {
     return (
       <div>
         <input className={`patrolInput ${invalidClass}`} type='text' autoFocus value={this.state.regex} onChange={this.handleChange}></input>
-        <button className='button -size-sm' onClick={this.handleAddClick}>
+        <button className='button -size-sm' onClick={this.handleSubmitClick}>
           { this.state.isEditing ? 'Update' : 'Add' } Patrol
         </button>
         <button className='button -size-sm button--subtle' onClick={this.props.onCancel}>Cancel</button>
