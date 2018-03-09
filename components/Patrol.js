@@ -62,9 +62,9 @@ class Patrol extends React.Component {
           {
             this.state.isEditing &&
             <div>
-              <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
-              <button onClick={this.handleUpdateClick}>Update</button>
-              <button onClick={this.handleCancelClick}>Cancel</button>
+              <input className='repo-input' type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
+              <button className='button -size-sm' onClick={this.handleUpdateClick}>Update</button>
+              <button className='button -size-sm' onClick={this.handleCancelClick}>Cancel</button>
             </div>
           }
         </div>

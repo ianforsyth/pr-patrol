@@ -1,7 +1,10 @@
 import React from 'react'
 import axois from 'axios'
-import Patrol from './Patrol'
 import PatrolService from '../networking/PatrolService'
+
+import Patrol from './Patrol'
+import PatrolInput from './PatrolInput'
+
 import _ from 'lodash'
 
 class Repo extends React.Component {
@@ -9,31 +12,19 @@ class Repo extends React.Component {
     super(props)
 
     this.state = {
-      newRegex: '',
       patrols: this.props.repo.patrols,
-      isAddingPatrol: this.props.preOpenAdd
+      isAddingPatrol: this.props.openPatrolPrompt
     }
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleAddClick = this.handleAddClick.bind(this)
     this.handleCancelClick = this.handleCancelClick.bind(this)
     this.handleAddPatrolClick = this.handleAddPatrolClick.bind(this)
   }
 
-  handleChange(e) {
-    this.setState({ newRegex: e.target.value })
-  }
-
-  handleAddClick() {
-    PatrolService.create({
-      repo_id: this.props.repo.id,
-      regex: this.state.newRegex
-    }).then((data) => {
-      this.setState({
-        patrols: _.concat([data], this.state.patrols),
-        newRegex: '',
-        isAddingPatrol: false
-      })
+  handleAddClick(patrol) {
+    this.setState({
+      patrols: _.concat([patrol], this.state.patrols),
+      isAddingPatrol: false
     })
   }
 
@@ -46,7 +37,7 @@ class Repo extends React.Component {
   }
 
   handleDeletePatrolClick(id) {
-    this.setState({ patrols: _.remove(this.state.patrols, (patrol) => patrol.id == id) })
+    this.setState({ patrols: _.reject(this.state.patrols, (patrol) => patrol.id == id) })
   }
 
   render() {
@@ -59,19 +50,26 @@ class Repo extends React.Component {
           </div>
           <div className='repo-actions'>
             { !this.state.isAddingPatrol &&
-              <button className='button repo-addPatrol' onClick={this.handleAddPatrolClick}>Add Patrol</button>
+              <button className='button -size-sm' onClick={this.handleAddPatrolClick}>Add Patrol</button>
             }
           </div>
         </div>
         { this.state.isAddingPatrol &&
-          <div>
-            <input type='text' value={this.state.newRegex} onChange={this.handleChange}></input>
-            <button onClick={this.handleAddClick}>Add</button>
-            <button onClick={this.handleCancelClick}>Cancel</button>
+          <div className='repo-patrolPrompt'>
+            <p className='repo-patrolDescription'>
+              Patrols are substrings of filenames. When a PR makes changes to a file and
+              the filename includes your patrol, you'll receive an email alert.
+            </p>
+            <PatrolInput
+              onCancel={this.handleCancelClick}
+              onAdd={this.handleAddClick}
+              repoId={this.props.repo.id}
+              value={this.state.newRegex}>
+            </PatrolInput>
           </div>
         }
         {
-          this.state.patrols.map((patrol, index) => {
+          this.state.patrols.map((patrol) => {
             return <Patrol patrol={patrol} key={patrol.id} onDelete={() => this.handleDeletePatrolClick(patrol.id)}></Patrol>
           })
         }

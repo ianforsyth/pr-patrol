@@ -106,7 +106,7 @@ class AppPage extends React.Component {
             </div>
           }
           { !this.state.repoOptions.length && this.state.hasRepos && !this.state.isLoading &&
-            <button className='button addRepo' onClick={this.fetchGithubRepos}>Add Repo</button>
+            <button className='button button--shine addRepo' onClick={this.fetchGithubRepos}>Add A Repo</button>
           }
           { !!this.state.repoOptions.length && !this.state.isLoading &&
             <div>
@@ -118,13 +118,13 @@ class AppPage extends React.Component {
                   })
                 }
               </div>
-              <button className='button button--cancel cancelRepo' onClick={this.handleCancelRepoClick}>Cancel</button>
+              <button className='button button--subtle cancelRepo' onClick={this.handleCancelRepoClick}>Cancel</button>
             </div>
           }
           {
             this.state.repos.map((repo) => {
-            const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
-              return <Repo key={repo.id} repo={repo} preOpenAdd={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
+              const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
+              return <Repo key={repo.id} repo={repo} openPatrolPrompt={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
             })
           }
         </div>

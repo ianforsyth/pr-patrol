@@ -1,5 +1,4 @@
 .button {
-  @include blueGradient;
   border-radius: 3px;
   border: 0;
   color: white;
@@ -9,10 +8,21 @@
   padding: 10px 25px;
   overflow: hidden;
   position: relative;
+  background: $slate;
 
   span {
     display: inline-block;
     vertical-align: middle;
+  }
+
+  &:hover {
+    background: $slate-light;
+  }
+
+  &.-size-sm {
+    font-size: 14px;
+    padding: 5px 12px;
+    transition: background .25s;
   }
 }
 
@@ -23,10 +33,23 @@
 }
 
 .button--shine {
+  @include blueGradient;
   @include shine-hover;
+
+  &:hover { @include blueGradient }
 }
 
 .button--cancel {
   @include redGradient;
 }
+
+.button--subtle {
+  background: transparent;
+  color: $slate-light;
+
+  &:hover {
+    background: inherit;
+  }
+}
+
 

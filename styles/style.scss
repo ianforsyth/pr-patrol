@@ -4,11 +4,13 @@
 
 .u-alignCenter { text-align: center }
 
-$slate: #252F3A;
-$slate-light: lighten($slate, 3%);
-$slate-dark: darken($slate, 2%);
+$slate: #2b3743;
+$slate-light: #43505d;
+$slate-dark: #212A34;
 
+$white: white;
 $aqua: #67E2E5;
+$aqua-light: #b1fffc;
 $red: #DD3B34;
 $charcoal: #252525;
 $gray: #EAEAEA;
@@ -19,6 +21,7 @@ $body-padding: 20px;
 @import 'button.scss';
 @import 'logo.scss';
 @import 'steps.scss';
+@import 'repo.scss';
 @import 'spinner.scss';
 
 * {
@@ -26,6 +29,7 @@ $body-padding: 20px;
   padding: 0;
   outline: 0;
   border: 0;
+  box-sizing: border-box;
 }
 
 a {
@@ -75,6 +79,7 @@ body,
   margin: 30px auto;
   width: 100%;
   max-width: 600px;
+  padding: 20px;
 }
 
 .noRepos-icon {
@@ -116,6 +121,7 @@ body,
   width: 100%;
   border-radius: 3px;
   background: white;
+  margin-top: 30px;
 }
 
 .repoList {
@@ -128,6 +134,7 @@ body,
 .repo-head {
   padding: 10px 10px;
   text-align: left;
+  border-bottom: 1px solid $slate;
 }
 
 .repo-title {
@@ -143,6 +150,7 @@ body,
 }
 
 .actionIcon {
+  transition: color .25s;
   display: none;
   color: gray;
   cursor: pointer;
@@ -150,6 +158,10 @@ body,
 
   *:hover > & {
     display: inline;
+  }
+
+  &:hover {
+    color: $aqua
   }
 }
 
@@ -159,6 +171,13 @@ body,
 
   &:nth-of-type(even) {
     background: $gray;
+  }
+}
+
+.repoList-repo {
+  &:hover {
+    background: $aqua-light;
+    transition: background .35s;
   }
 }
 
