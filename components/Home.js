@@ -38,7 +38,7 @@ class Home extends React.Component {
     return (
       <div className='reactBody'>
         <div className='content'>
-          <Spinner isVisible={this.state.isLoading}/>
+          { this.state.isLoading && <Spinner/> }
           { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
           { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
         </div>

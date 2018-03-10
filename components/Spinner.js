@@ -8,9 +8,7 @@ class Spinner extends React.Component {
   render() {
     return (
       <div className='spinner-container'>
-        { this.props.isVisible &&
-          <div className='spinner'></div>
-        }
+        <div className='spinner'></div>
       </div>
     )
   }

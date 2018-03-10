@@ -55,6 +55,7 @@ body,
 }
 
 .content {
+  position: relative;
   flex: 1 0 auto;
 }
 
@@ -80,6 +81,7 @@ body,
   width: 100%;
   max-width: 600px;
   padding: 20px;
+  position: relative;
 }
 
 .noRepos-icon {
@@ -100,7 +102,7 @@ body,
 }
 
 .title {
-  margin-top: 20px;
+  margin-top: 60px;
   font-size: 48px;
 }
 
