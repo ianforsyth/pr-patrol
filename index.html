@@ -4,11 +4,13 @@
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115490658-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      if(document.location.hostname != 'localhost') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'UA-115490658-1');
+        gtag('config', 'UA-115490658-1');
+      }
     </script>
 
     <title>PR Patrol</title>
