@@ -4,11 +4,13 @@ const path = require('path')
 const Dotenv = require('dotenv-webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = merge(common, {
   plugins: [
     new CleanWebpackPlugin(['docs'], { exclude: ['CNAME', 'img/'] }),
     new Dotenv({ path: './.env.prod' }),
     new CopyWebpackPlugin([{ from: 'img/favicons/', to: 'img/favicons/' }]),
+    new UglifyJsPlugin()
   ],
 })
