@@ -1,11 +1,11 @@
 import React from 'react'
 import queryString from 'query-string'
 import cookie from 'react-cookies'
-import UserService from '../networking/UserService'
+import UserService from 'UserService'
 
-import Spinner from './Spinner'
-import LandingPage from './LandingPage'
-import AppPage from './AppPage'
+import Spinner from 'Spinner'
+import LandingPage from 'LandingPage'
+import AppPage from 'AppPage'
 
 class Home extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React from 'react'
-import PatrolService from '../networking/PatrolService.js'
-import PatrolInput from './PatrolInput'
+import PatrolService from 'PatrolService.js'
+import PatrolInput from 'PatrolInput'
 
 class Patrol extends React.Component {
   constructor(props) {

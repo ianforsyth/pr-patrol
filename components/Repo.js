@@ -1,9 +1,9 @@
 import React from 'react'
 import axois from 'axios'
-import PatrolService from '../networking/PatrolService'
+import PatrolService from 'networking/PatrolService'
 
-import Patrol from './Patrol'
-import PatrolInput from './PatrolInput'
+import Patrol from 'components/Patrol'
+import PatrolInput from 'components/PatrolInput'
 
 import _ from 'lodash'
 

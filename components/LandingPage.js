@@ -1,5 +1,5 @@
 import React from 'react'
-import Pete from '../img/pete.svg'
+import Pete from 'pete.svg'
 
 class LandingPage extends React.Component {
   constructor(props) {

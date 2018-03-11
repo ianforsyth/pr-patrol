@@ -1,9 +1,9 @@
 import React from 'react'
-import RepoService from '../networking/RepoService'
-import GithubRepoService from '../networking/GithubRepoService'
+import RepoService from 'RepoService'
+import GithubRepoService from 'GithubRepoService'
 
-import Repo from './Repo'
-import Spinner from './Spinner'
+import Repo from 'Repo'
+import Spinner from 'Spinner'
 
 import cookie from 'react-cookies'
 import _ from 'lodash'
