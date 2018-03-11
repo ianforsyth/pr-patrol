@@ -31,6 +31,7 @@
     "lodash": "^4.17.5",
     "node-sass": "^4.7.2",
     "path": "^0.12.7",
+    "postcss-loader": "^2.1.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
     "uglifyjs-webpack-plugin": "^1.2.2",
