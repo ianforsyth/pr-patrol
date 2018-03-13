@@ -13,9 +13,10 @@ class AppPage extends React.Component {
     super(props)
 
     this.state = {
+      installedRepos: [],
+      selectedRepos: [],
       repoOptions: [],
-      repos: [],
-      hasRepos: true,
+      hasFetchedRepos: false,
       isLoading: true
     }
 
@@ -30,7 +31,7 @@ class AppPage extends React.Component {
   fetchReposAndPatrols() {
     RepoService.fetch().then((data) => {
       if(data.length) {
-        this.setState({ repos: data, isLoading: false })
+        this.setState({ selectedRepos: data, isLoading: false })
       } else {
         this.fetchGithubRepos()
       }
@@ -41,23 +42,22 @@ class AppPage extends React.Component {
     this.setState({ isLoading: true })
 
     GithubRepoService.fetch().then((data) => {
-      if(data.length) {
-        let existingRepoGithubIds = _.map(this.state.repos, 'githubId')
-        this.setState({
-          repoOptions: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)),
-          isLoading: false
-        })
-      } else {
-        this.setState({
-          hasRepos: false,
-          isLoading: false
-        })
-      }
+      let existingRepoGithubIds = _.map(this.state.selectedRepos, 'githubId')
+      console.log(data)
+      this.setState({
+        installedRepos: data,
+        repoOptions: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)),
+        isLoading: false,
+        hasFetchedRepos: true
+      })
     })
   }
 
   handleCancelRepoClick() {
-    this.setState({ repoOptions: [] })
+    this.setState({
+      hasFetchedRepos: false,
+      repoOptions: []
+    })
   }
 
   handleCreateRepo(id, name) {
@@ -66,8 +66,9 @@ class AppPage extends React.Component {
       name: name
     }).then((data) => {
       this.setState({
-        repos: _.concat([data], this.state.repos),
+        selectedRepos: _.concat([data], this.state.selectedRepos),
         repoOptions: [],
+        hasFetchedRepos: false,
         lastRepoIdAdded: data.id
       })
     })
@@ -75,7 +76,7 @@ class AppPage extends React.Component {
 
   handleDeleteRepo(repo) {
     RepoService.delete(repo.id).then(() => {
-      this.setState({ repos: _.without(this.state.repos, repo) })
+      this.setState({ selectedRepos: _.without(this.state.selectedRepos, repo) })
     })
   }
 
@@ -85,14 +86,22 @@ class AppPage extends React.Component {
   }
 
   render() {
+    let states = {
+      initial: !this.state.isLoading && !this.state.hasFetchedRepos,
+      isLoading: this.state.isLoading,
+      noReposInstalled: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.installedRepos.length == 0,
+      noReposLeft: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.installedRepos.length && !!this.state.repoOptions.length == 0,
+      hasRepos: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.repoOptions.length
+    }
+
     return (
       <div>
         <div className='signOut'>
           <a onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
         <div className='appBody'>
-          { this.state.isLoading && <Spinner height="100px"/> }
-          { !this.state.hasRepos && !this.state.isLoading &&
+          { states.isLoading && <Spinner height="100px"/> }
+          { states.noReposInstalled &&
             <div className='u-alignCenter'>
               <h5 className='subtitle'>You haven't installed PR Patrol yet!</h5>
               <span className='fas fa-exclamation-triangle noRepos-icon'></span>
@@ -103,10 +112,20 @@ class AppPage extends React.Component {
               </p>
             </div>
           }
-          { !this.state.repoOptions.length && this.state.hasRepos && !this.state.isLoading &&
+          { states.noReposLeft &&
+            <div className='u-alignCenter'>
+              <h5 className='subtitle'>No repos left!</h5>
+              <span className='fas fa-exclamation-triangle noRepos-icon'></span>
+              <p>
+                You're already monitoring all the repos where PR Patrol is installed. To monitor more, update your
+                <a href='https://github.com/settings/installations' target='_blank' className='link'> GitHub settings</a>.
+              </p>
+            </div>
+          }
+          { states.initial &&
             <button className='button button--shine addRepo' onClick={this.fetchGithubRepos}>Add A Repo</button>
           }
-          { !!this.state.repoOptions.length && !this.state.isLoading &&
+          { states.hasRepos &&
             <div>
               <h5 className='subtitle u-alignCenter'>Choose a repo you want to monitor</h5>
               <div className='repoList'>
@@ -120,7 +139,7 @@ class AppPage extends React.Component {
             </div>
           }
           {
-            this.state.repos.map((repo) => {
+            this.state.selectedRepos.map((repo) => {
               const wasLastRepoAdded = (this.state.lastRepoIdAdded == repo.id)
               return <Repo key={repo.id} repo={repo} openPatrolPrompt={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
             })
