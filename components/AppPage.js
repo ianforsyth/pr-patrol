@@ -90,8 +90,6 @@ class AppPage extends React.Component {
         <div className='signOut'>
           <a onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
-        <div className='metrics'>
-        </div>
         <div className='appBody'>
           { this.state.isLoading && <Spinner height="100px"/> }
           { !this.state.hasRepos && !this.state.isLoading &&
