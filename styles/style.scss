@@ -111,6 +111,10 @@ body,
   font-weight: 400;
 }
 
+.repoList-container {
+  position: relative;
+}
+
 .repo, .repoList {
   font-size: 16px;
   color: $charcoal;

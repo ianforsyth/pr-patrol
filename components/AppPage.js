@@ -93,7 +93,7 @@ class AppPage extends React.Component {
         <div className='metrics'>
         </div>
         <div className='appBody'>
-          { this.state.isLoading && <Spinner/> }
+          { this.state.isLoading && <Spinner height="100px"/> }
           { !this.state.hasRepos && !this.state.isLoading &&
             <div className='u-alignCenter'>
               <h5 className='subtitle'>You haven't installed PR Patrol yet!</h5>
