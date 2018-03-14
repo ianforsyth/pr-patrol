@@ -57,8 +57,8 @@ class Repo extends React.Component {
         { this.state.isAddingPatrol &&
           <div className='repo-patrolPrompt'>
             <p className='repo-patrolDescription'>
-              Patrols are substrings of filenames. When a PR makes changes to a file and
-              the filename includes your patrol, you'll receive an email alert.
+              Patrols are substrings of file paths. When a PR makes changes to a file and
+              the file path includes your patrol, you'll receive an email alert.
             </p>
             <PatrolInput
               onCancel={this.handleCancelClick}
