@@ -22,7 +22,7 @@ class PrPatrolNetworking {
     return request.then((response) => {
       return response.data
     }).catch((response) => {
-      Promise.reject(response.data)
+      return Promise.reject(response)
     })
   }
 

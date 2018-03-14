@@ -12,6 +12,7 @@ $white: white;
 $aqua: #67E2E5;
 $aqua-light: #b1fffc;
 $red: #DD3B34;
+$red-dark: #B23534;
 $charcoal: #252525;
 $gray: #EAEAEA;
 
@@ -185,6 +186,26 @@ body,
 
 .patrol-regex {
   text-align: left;
+}
+
+.flash--error {
+  background: $red;
+  text-align: center;
+  padding: 8px 20px;
+  transition: background .35s;
+
+  &:hover {
+    background: $red-dark;
+  }
+}
+
+.flash-link {
+  text-decoration: underline
+}
+
+.flash-dismiss {
+  float: right;
+  cursor: pointer;
 }
 
 .footer {
