@@ -100,8 +100,8 @@ class AppPage extends React.Component {
           <a onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
         <div className='appBody'>
-          { states.isLoading && <Spinner height="100px"/> }
           { states.noReposInstalled &&
+          { <Spinner height="100px" isVisible={this.state.isLoading}/> }
             <div className='u-alignCenter'>
               <h5 className='subtitle'>You haven't installed PR Patrol yet!</h5>
               <span className='fas fa-exclamation-triangle noRepos-icon'></span>

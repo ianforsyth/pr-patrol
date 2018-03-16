@@ -6,6 +6,8 @@ class Spinner extends React.Component {
   }
 
   render() {
+    if(!this.props.isVisible) { return null }
+
     const isStatic = !!this.props.height ? 'isStatic' : ''
     const heightStyle = !!this.props.height ? { height: this.props.height } : {}
 
