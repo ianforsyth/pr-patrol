@@ -18,12 +18,15 @@ $gray: #EAEAEA;
 
 $body-padding: 20px;
 
+$z-index-1: 100;
+
 @import 'mixins.scss';
 @import 'button.scss';
 @import 'logo.scss';
 @import 'steps.scss';
 @import 'repo.scss';
 @import 'spinner.scss';
+@import 'modal.scss';
 
 * {
   margin: 0;
