@@ -18,10 +18,7 @@ class Home extends React.Component {
       userIsAuthorized: userIsAuthorized,
       githubRedirectCode: githubCode,
       isLoading: (!!githubCode && !userIsAuthorized),
-      emailErrorMessage: false
     }
-
-    this.dismissEmailErrorMessage = this.dismissEmailErrorMessage.bind(this)
   }
 
   componentWillMount() {
@@ -32,17 +29,9 @@ class Home extends React.Component {
         cookie.save('pr_patrol', data.appAuthToken)
         this.setState({ userIsAuthorized: true, isLoading: false })
       }).catch((error) => {
-        if(error.response.status == 422) {
-          this.setState({ isLoading: false, emailErrorMessage: true })
-        } else {
-          this.setState({ isLoading: false })
-        }
+        this.setState({ isLoading: false })
       })
     }
-  }
-
-  dismissEmailErrorMessage() {
-    this.setState({ emailErrorMessage: false })
   }
 
   render() {
@@ -50,13 +39,6 @@ class Home extends React.Component {
       <div className='reactBody'>
         <div className='content'>
           { this.state.isLoading && <Spinner/> }
-          { this.state.emailErrorMessage &&
-            <div className='flash--error'>
-              Right now, PR Patrol requires you have a public email address set in your
-              <a className='flash-link' href='https://github.com/settings/profile' target='_blank'> GitHub settings</a>.
-              <span className='flash-dismiss' onClick={this.dismissEmailErrorMessage}>X</span>
-            </div>
-          }
           { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
           { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
         </div>

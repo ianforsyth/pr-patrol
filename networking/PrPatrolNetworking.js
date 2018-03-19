@@ -26,6 +26,10 @@ class PrPatrolNetworking {
     })
   }
 
+  get() {
+    return this.sendRequest(this.networking.get(this.getPath()))
+  }
+
   fetch() {
     return this.sendRequest(this.networking.get(this.fetchPath()))
   }

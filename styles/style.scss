@@ -2,7 +2,8 @@
 
 @import 'variables.scss';
 
-.u-alignCenter { text-align: center }
+.u-alignCenter { text-align: center; }
+.u-alignRight { text-align: right; }
 
 $slate: #2b3743;
 $slate-light: #43505d;
@@ -26,6 +27,7 @@ $z-index-1: 100;
 @import 'steps.scss';
 @import 'repo.scss';
 @import 'spinner.scss';
+@import 'email-warning.scss';
 @import 'modal.scss';
 
 * {
@@ -48,6 +50,20 @@ body,
   height: 100%;
 }
 
+input {
+  border: 1px solid $slate;
+  font-size: 16px;
+  width: 100%;
+  background: $white;
+  border-radius: 2px;
+  padding: 5px 8px;
+  margin-bottom: 5px;
+
+  &.stateInvalid {
+    border-color: $red;
+  }
+}
+
 .reactBody {
   @include bg;
   font-family: 'Lato';
@@ -68,11 +84,21 @@ body,
   text-align: center;
 }
 
-.signOut {
+.nav {
   text-align: right;
   padding: 10px 20px;
   background: $slate-dark;
   box-shadow:  0px 2px 5px 0px rgba(0,0,0,0.3);
+
+  .nav-link {
+    padding: 0 10px;
+    border-right: 1px solid $gray;
+
+    &:last-of-type {
+      padding-right: 0;
+      border: 0;
+    }
+  }
 }
 
 .appBody {
@@ -225,3 +251,32 @@ body,
   }
 }
 
+$gutter-px: 10px;
+$gutter-keywords: margin padding;
+$gutter-directions: top right bottom left;
+$gutter-sizes: (
+  xs: 0.3,
+  sm: 0.5,
+  md: 1,
+  lg: 1.5,
+  xl: 2,
+  2x: 3
+);
+
+// Margin & Padding
+$gutter-keywords: margin padding;
+$gutter-directions: top right bottom left;
+
+@each $keyword in $gutter-keywords {
+  .u-#{str-slice(#{$keyword},1,1)}-sm { #{$keyword}: 5px !important; }
+  .u-#{str-slice(#{$keyword},1,1)} { #{$keyword}: 10px !important; }
+  .u-#{str-slice(#{$keyword},1,1)}-lg { #{$keyword}: 20px !important; }
+  .u-no-#{str-slice(#{$keyword},1,1)} { #{$keyword}: 0 !important; }
+
+  @each $direction in $gutter-directions {
+    .u-#{str-slice(#{$keyword},1,1)}-#{$direction}-sm { #{$keyword}-#{$direction}: 5px !important; }
+    .u-#{str-slice(#{$keyword},1,1)}-#{$direction} { #{$keyword}-#{$direction}: 10px !important; }
+    .u-#{str-slice(#{$keyword},1,1)}-#{$direction}-lg { #{$keyword}-#{$direction}: 20px !important; }
+    .u-no-#{str-slice(#{$keyword},1,1)}-#{$direction} { #{$keyword}-#{$direction}: 0 !important; }
+  }
+}

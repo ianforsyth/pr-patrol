@@ -1,9 +1,12 @@
 import React from 'react'
+import UserService from 'UserService'
 import RepoService from 'RepoService'
 import GithubRepoService from 'GithubRepoService'
 
 import Repo from 'Repo'
 import Spinner from 'Spinner'
+import Settings from 'Settings'
+import EmailWarning from 'EmailWarning'
 
 import cookie from 'react-cookies'
 import _ from 'lodash'
@@ -13,37 +16,54 @@ class AppPage extends React.Component {
     super(props)
 
     this.state = {
+      user: null,
       installedRepos: [],
       selectedRepos: [],
       repoOptions: [],
       hasFetchedRepos: false,
-      isLoading: true
+      isLoading: true,
+      settingsVisible: false
     }
 
     this.fetchGithubRepos = this.fetchGithubRepos.bind(this)
     this.handleCancelRepoClick = this.handleCancelRepoClick.bind(this)
+    this.handleSettingsClick = this.handleSettingsClick.bind(this)
+    this.handleSettingsCloseClick = this.handleSettingsCloseClick.bind(this)
   }
 
   componentWillMount() {
-    this.fetchReposAndPatrols()
+    Promise.all([this.fetchReposAndPatrols(), this.getUser()]).then(() => {
+      this.setState({ isLoading: false })
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.state.settingsVisible && !nextState.settingsVisible) {
+      this.getUser()
+    }
   }
 
   fetchReposAndPatrols() {
-    RepoService.fetch().then((data) => {
+    return RepoService.fetch().then((data) => {
       if(data.length) {
-        this.setState({ selectedRepos: data, isLoading: false })
+        this.setState({ selectedRepos: data })
       } else {
-        this.fetchGithubRepos()
+        return this.fetchGithubRepos()
       }
+    })
+  }
+
+  getUser() {
+    return UserService.get().then((data) => {
+      this.setState({ user: data })
     })
   }
 
   fetchGithubRepos() {
     this.setState({ isLoading: true })
 
-    GithubRepoService.fetch().then((data) => {
+    return GithubRepoService.fetch().then((data) => {
       let existingRepoGithubIds = _.map(this.state.selectedRepos, 'githubId')
-      console.log(data)
       this.setState({
         installedRepos: data,
         repoOptions: _.filter(data, (repo) => !_.includes(existingRepoGithubIds, repo.id)),
@@ -85,23 +105,38 @@ class AppPage extends React.Component {
     location.reload()
   }
 
+  handleSettingsClick() {
+    this.setState({ settingsVisible: true })
+  }
+
+  handleSettingsCloseClick() {
+    this.setState({ settingsVisible: false })
+  }
+
   render() {
     let states = {
       initial: !this.state.isLoading && !this.state.hasFetchedRepos,
       isLoading: this.state.isLoading,
+      userNeedsEmail: !this.state.isLoading && this.state.user && !this.state.user.email,
       noReposInstalled: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.installedRepos.length == 0,
       noReposLeft: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.installedRepos.length && !!this.state.repoOptions.length == 0,
-      hasRepos: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.repoOptions.length
+      hasRepos: !this.state.isLoading && this.state.hasFetchedRepos && !!this.state.repoOptions.length,
+      settingsVisible: this.state.settingsVisible
     }
 
     return (
       <div>
-        <div className='signOut'>
-          <a onClick={this.handleSignOutClick}>Sign Out</a>
+        <div className='nav'>
+          <a className='nav-link' onClick={this.handleSettingsClick}>Settings</a>
+          <a className='nav-link' onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
         <div className='appBody'>
-          { states.noReposInstalled &&
           { <Spinner height="100px" isVisible={this.state.isLoading}/> }
+          { !this.state.isLoading && <EmailWarning user={this.state.user} onOpenSettings={this.handleSettingsClick}/> }
+          { states.settingsVisible &&
+            <Settings user={this.state.user} onClose={this.handleSettingsCloseClick}></Settings>
+          }
+          { states.noReposInstalled && !states.userNeedsEmail &&
             <div className='u-alignCenter'>
               <h5 className='subtitle'>You haven't installed PR Patrol yet!</h5>
               <span className='fas fa-exclamation-triangle noRepos-icon'></span>

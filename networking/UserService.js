@@ -1,7 +1,10 @@
 import PrPatrolNetworking from './PrPatrolNetworking'
 
 class UserService extends PrPatrolNetworking {
-  createPath() { return '/users' }
+  getPath() { return '/user' }
+  createPath() { return '/user' }
+  updatePath() { return '/user' }
+
 }
 
 export default new UserService
