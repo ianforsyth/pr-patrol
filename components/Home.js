@@ -26,10 +26,10 @@ class Home extends React.Component {
 
     if(emailConfirmationToken) {
       this.confirmUserEmail(emailConfirmationToken)
-    } else if(userHasCookie) {
-      this.getUser()
     } else if(githubAuthCode) {
       this.createUser(githubAuthCode)
+    } else if(userHasCookie) {
+      this.getUser()
     }
   }
 
@@ -64,6 +64,8 @@ class Home extends React.Component {
 
     UserService.get().then((data) => {
       this.setState({ user: data, isLoading: false })
+    }).catch((error) => {
+      this.setState({ isLoading: false })
     })
   }
 
@@ -71,7 +73,7 @@ class Home extends React.Component {
     return (
       <div className='reactBody'>
         <div className='content'>
-          { this.state.isLoading && <Spinner/> }
+          { this.state.isLoading && <Spinner isVisible={true}/> }
           { _.isEmpty(this.state.user) && !this.state.isLoading && <LandingPage></LandingPage> }
           { !_.isEmpty(this.state.user) && !this.state.isLoading && <AppPage user={this.state.user}></AppPage> }
         </div>
