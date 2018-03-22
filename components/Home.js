@@ -21,9 +21,12 @@ class Home extends React.Component {
 
   componentWillMount() {
     const userHasCookie = _.isString(cookie.load('pr_patrol'))
+    const emailConfirmationToken = queryString.parse(this.props.location.search).email_confirmation_token
     const githubAuthCode = queryString.parse(this.props.location.search).code
 
-    if(userHasCookie) {
+    if(emailConfirmationToken) {
+      this.confirmUserEmail(emailConfirmationToken)
+    } else if(userHasCookie) {
       this.getUser()
     } else if(githubAuthCode) {
       this.createUser(githubAuthCode)
@@ -38,6 +41,19 @@ class Home extends React.Component {
     }).then((data) => {
       cookie.save('pr_patrol', data.appAuthToken)
       this.setState({ user: data, isLoading: false })
+    }).catch((error) => {
+      this.setState({ isLoading: false })
+    })
+  }
+
+  confirmUserEmail(token) {
+    this.setState({ isLoading: true })
+
+    UserService.update({
+      emailConfirmationToken: token
+    }).then((data) => {
+      cookie.save('pr_patrol', data.appAuthToken)
+      this.setState({ isLoading: false, user: data })
     }).catch((error) => {
       this.setState({ isLoading: false })
     })
