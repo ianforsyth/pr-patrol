@@ -7,31 +7,48 @@ import Spinner from 'Spinner'
 import LandingPage from 'LandingPage'
 import AppPage from 'AppPage'
 
+import _ from 'lodash'
+
 class Home extends React.Component {
   constructor(props) {
     super(props)
 
-    const githubCode = queryString.parse(this.props.location.search).code
-    const userIsAuthorized = typeof cookie.load('pr_patrol') != 'undefined'
-
     this.state = {
-      userIsAuthorized: userIsAuthorized,
-      githubRedirectCode: githubCode,
-      isLoading: (!!githubCode && !userIsAuthorized),
+      user: {},
+      isLoading: false,
     }
   }
 
   componentWillMount() {
-    if(!this.state.userIsAuthorized && this.state.githubRedirectCode) {
-      UserService.create({
-        code: this.state.githubRedirectCode,
-      }).then((data) => {
-        cookie.save('pr_patrol', data.appAuthToken)
-        this.setState({ userIsAuthorized: true, isLoading: false })
-      }).catch((error) => {
-        this.setState({ isLoading: false })
-      })
+    const userHasCookie = _.isString(cookie.load('pr_patrol'))
+    const githubAuthCode = queryString.parse(this.props.location.search).code
+
+    if(userHasCookie) {
+      this.getUser()
+    } else if(githubAuthCode) {
+      this.createUser(githubAuthCode)
     }
+  }
+
+  createUser(githubAuthCode) {
+    this.setState({ isLoading: true })
+
+    UserService.create({
+      code: githubAuthCode,
+    }).then((data) => {
+      cookie.save('pr_patrol', data.appAuthToken)
+      this.setState({ user: data, isLoading: false })
+    }).catch((error) => {
+      this.setState({ isLoading: false })
+    })
+  }
+
+  getUser() {
+    this.setState({ isLoading: true })
+
+    UserService.get().then((data) => {
+      this.setState({ user: data, isLoading: false })
+    })
   }
 
   render() {
@@ -39,8 +56,8 @@ class Home extends React.Component {
       <div className='reactBody'>
         <div className='content'>
           { this.state.isLoading && <Spinner/> }
-          { !this.state.userIsAuthorized && !this.state.isLoading && <LandingPage></LandingPage> }
-          { this.state.userIsAuthorized && !this.state.isLoading && <AppPage></AppPage> }
+          { _.isEmpty(this.state.user) && !this.state.isLoading && <LandingPage></LandingPage> }
+          { !_.isEmpty(this.state.user) && !this.state.isLoading && <AppPage user={this.state.user}></AppPage> }
         </div>
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>

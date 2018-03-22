@@ -49,3 +49,32 @@
   color: $gray;
   font-size: 18px;
 }
+
+.signUpSteps {
+  text-align: center;
+}
+
+.signUpStep {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background: $slate;
+  border: 1px solid $slate-dark;
+  padding: 40px;
+  border-radius: 2px;
+}
+
+.signUpStep input {
+  max-width: 300px;
+  margin-top: 8px;
+}
+
+.signUpStep button {
+  margin: 30px auto 0;
+  display: block;
+}
+
+.signUpStep p {
+  line-height: 1.5;
+}
+
