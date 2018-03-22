@@ -1,13 +1,10 @@
 .emailWarning {
-  background: $red;
+  background: $slate;
+  border: 1px solid $slate-dark;
   padding: 20px 20px;
   border-radius: 2px;
   text-align: center;
-  margin-bottom: 50px;
-  font-size: 16px;
-  line-height: 1.5;
+  margin-bottom: 40px;
+  font-size: 14px;
 }
 
-.emailWarning-link {
-  text-decoration: underline;
-}

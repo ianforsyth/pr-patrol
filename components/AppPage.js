@@ -7,6 +7,7 @@ import Repo from 'Repo'
 import Spinner from 'Spinner'
 import Settings from 'Settings'
 
+import EmailConfirmationWarning from 'EmailConfirmationWarning'
 import EmailPrompt from 'EmailPrompt'
 import AddRepo from 'AddRepo'
 
@@ -30,7 +31,8 @@ class AppPage extends React.Component {
     this.handleCreateRepo = this.handleCreateRepo.bind(this)
     this.handleSettingsClick = this.handleSettingsClick.bind(this)
     this.handleSettingsCloseClick = this.handleSettingsCloseClick.bind(this)
-    this.handleUserEmailUpdate = this.handleUserEmailUpdate.bind(this)
+    this.handleEmailPromptUpdate = this.handleEmailPromptUpdate.bind(this)
+    this.handleSettingsUpdate = this.handleSettingsUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -86,7 +88,7 @@ class AppPage extends React.Component {
     this.setState({ settingsVisible: false })
   }
 
-  handleUserEmailUpdate(email) {
+  handleEmailPromptUpdate(email) {
     this.setState({ isLoading: true })
 
     UserService.update({
@@ -102,7 +104,18 @@ class AppPage extends React.Component {
     })
   }
 
+  handleSettingsUpdate(user) {
+    this.setState({
+      user: user,
+      settingsVisible: false
+    })
+  }
+
   render() {
+    if(this.state.isLoading) {
+      return <Spinner height="100px" isVisible={this.state.isLoading}/>
+    }
+
     return (
       <div>
         <div className='nav'>
@@ -110,11 +123,10 @@ class AppPage extends React.Component {
           <a className='nav-link' onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
         <div className='appBody'>
-          { <Spinner height="100px" isVisible={this.state.isLoading}/> }
-          { !this.state.isLoading && !this.state.user.email && <EmailPrompt user={this.state.user} onUpdate={this.handleUserEmailUpdate}/> }
-          { !this.state.isLoading && this.state.isAddingRepo && <AddRepo onCreate={this.handleCreateRepo} selectedRepos={this.state.repos} onCancel={this.handleCancelRepoClick}/> }
-
-          { !this.state.isLoading && this.state.user.email && !this.state.isAddingRepo &&
+          { this.state.user.email && !this.state.user.emailConfirmed && <EmailConfirmationWarning/> }
+          { !this.state.user.email && <EmailPrompt user={this.state.user} onUpdate={this.handleEmailPromptUpdate}/> }
+          { this.state.isAddingRepo && <AddRepo onCreate={this.handleCreateRepo} selectedRepos={this.state.repos} onCancel={this.handleCancelRepoClick}/> }
+          { this.state.user.email && !this.state.isAddingRepo &&
             <button className='button button--shine addRepo -size-lg' onClick={this.handleAddRepoClick}>Add A Repo</button>
           }
           {
@@ -123,7 +135,7 @@ class AppPage extends React.Component {
               return <Repo key={repo.id} repo={repo} openPatrolPrompt={wasLastRepoAdded} onDelete={() => this.handleDeleteRepo(repo)}></Repo>
             })
           }
-          { this.state.settingsVisible && <Settings user={this.state.user} onClose={this.handleSettingsCloseClick}></Settings> }
+          { this.state.settingsVisible && <Settings user={this.state.user} onClose={this.handleSettingsCloseClick} onUpdate={this.handleSettingsUpdate}/> }
         </div>
       </div>
       )

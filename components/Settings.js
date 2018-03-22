@@ -30,7 +30,9 @@ class Settings extends React.Component {
       UserService.update({
         id: this.props.user.id,
         email: this.state.email
-      }).then(this.props.onClose)
+      }).then((data) => {
+        this.props.onUpdate(data)
+      })
     }
   }
 
