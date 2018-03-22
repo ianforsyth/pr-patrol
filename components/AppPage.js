@@ -123,7 +123,7 @@ class AppPage extends React.Component {
           <a className='nav-link' onClick={this.handleSignOutClick}>Sign Out</a>
         </div>
         <div className='appBody'>
-          { this.state.user.email && !this.state.user.emailConfirmed && <EmailConfirmationWarning/> }
+          { <EmailConfirmationWarning user={this.state.user}/> }
           { !this.state.user.email && <EmailPrompt user={this.state.user} onUpdate={this.handleEmailPromptUpdate}/> }
           { this.state.isAddingRepo && <AddRepo onCreate={this.handleCreateRepo} selectedRepos={this.state.repos} onCancel={this.handleCancelRepoClick}/> }
           { this.state.user.email && !this.state.isAddingRepo &&

@@ -4,6 +4,7 @@ import cookie from 'react-cookies'
 import UserService from 'UserService'
 
 import Spinner from 'Spinner'
+import EmailConfirmationWarning from 'EmailConfirmationWarning'
 import LandingPage from 'LandingPage'
 import AppPage from 'AppPage'
 
@@ -53,7 +54,11 @@ class Home extends React.Component {
       emailConfirmationToken: token
     }).then((data) => {
       cookie.save('pr_patrol', data.appAuthToken)
-      this.setState({ isLoading: false, user: data })
+      this.setState({
+        isLoading: false,
+        user: _.merge(data, { justConfirmed: true }),
+        confirmedEmail: true
+      })
     }).catch((error) => {
       this.setState({ isLoading: false })
     })
@@ -74,8 +79,8 @@ class Home extends React.Component {
       <div className='reactBody'>
         <div className='content'>
           { this.state.isLoading && <Spinner isVisible={true}/> }
-          { _.isEmpty(this.state.user) && !this.state.isLoading && <LandingPage></LandingPage> }
-          { !_.isEmpty(this.state.user) && !this.state.isLoading && <AppPage user={this.state.user}></AppPage> }
+          { !this.state.isLoading && _.isEmpty(this.state.user) && <LandingPage></LandingPage> }
+          { !this.state.isLoading && !_.isEmpty(this.state.user) && <AppPage user={this.state.user}></AppPage> }
         </div>
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>
