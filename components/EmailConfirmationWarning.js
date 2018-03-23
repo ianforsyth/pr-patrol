@@ -3,6 +3,10 @@ import React from 'react'
 class EmailConfirmationWarning extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      user: this.props.user
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -12,7 +16,7 @@ class EmailConfirmationWarning extends React.Component {
   }
 
   render() {
-    const user = this.props.user
+    const user = this.state.user
 
     if(!user.email || (user.emailConfirmed && !user.justConfirmed)) {
       return null
