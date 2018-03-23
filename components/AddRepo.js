@@ -25,7 +25,7 @@ class AddRepo extends React.Component {
     this.setState({ isLoading: true })
 
     GithubRepoService.fetch().then((data) => {
-     let existingRepoGithubIds = _.map(this.state.selectedRepos, 'githubId')
+      let existingRepoGithubIds = _.map(this.state.selectedRepos, 'githubId')
 
       this.setState({
         installedRepos: data,
@@ -78,7 +78,7 @@ class AddRepo extends React.Component {
             </p>
             <div className='repoList'>
               {
-                this.state.installedRepos.map((repo) => {
+                this.state.repoOptions.map((repo) => {
                   return <div className='repoList-repo' onClick={() => this.handleCreateRepo(repo.id, repo.fullName)} key={repo.id}>{repo.fullName}</div>
                 })
               }
