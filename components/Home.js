@@ -27,10 +27,10 @@ class Home extends React.Component {
 
     if(emailConfirmationToken) {
       this.confirmUserEmail(emailConfirmationToken)
+    } else if(userHasCookie) {
+      this.getUser(githubAuthCode)
     } else if(githubAuthCode) {
       this.createUser(githubAuthCode)
-    } else if(userHasCookie) {
-      this.getUser()
     }
   }
 
@@ -64,13 +64,16 @@ class Home extends React.Component {
     })
   }
 
-  getUser() {
+  getUser(githubAuthCode) {
     this.setState({ isLoading: true })
 
     UserService.get().then((data) => {
       this.setState({ user: data, isLoading: false })
     }).catch((error) => {
-      this.setState({ isLoading: false })
+      if(githubAuthCode)
+        this.createUser(githubAuthCode)
+      else
+        this.setState({ isLoading: false })
     })
   }
 
