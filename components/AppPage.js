@@ -2,6 +2,7 @@ import React from 'react'
 import UserService from 'UserService'
 import RepoService from 'RepoService'
 import GithubRepoService from 'GithubRepoService'
+import SlackService from 'SlackService'
 
 import Repo from 'Repo'
 import Spinner from 'Spinner'
@@ -11,6 +12,7 @@ import EmailConfirmationWarning from 'EmailConfirmationWarning'
 import EmailPrompt from 'EmailPrompt'
 import AddRepo from 'AddRepo'
 
+import queryString from 'query-string'
 import cookie from 'react-cookies'
 import _ from 'lodash'
 
@@ -33,6 +35,23 @@ class AppPage extends React.Component {
     this.handleSettingsCloseClick = this.handleSettingsCloseClick.bind(this)
     this.handleEmailPromptUpdate = this.handleEmailPromptUpdate.bind(this)
     this.handleSettingsUpdate = this.handleSettingsUpdate.bind(this)
+  }
+
+  componentWillMount() {
+    const stateParam = queryString.parse(this.props.location.search).state
+    const codeParam = queryString.parse(this.props.location.search).code
+
+    if(codeParam && stateParam == 'slack') {
+      this.setState({ isLoading: true })
+
+      SlackService.create({ code: codeParam}).then((data) => {
+        this.setState({
+          user: data,
+          isLoading: false,
+          settingsVisible: true
+        })
+      })
+    }
   }
 
   componentDidMount() {
@@ -105,10 +124,7 @@ class AppPage extends React.Component {
   }
 
   handleSettingsUpdate(user) {
-    this.setState({
-      user: user,
-      settingsVisible: false
-    })
+    this.setState({ user: user })
   }
 
   render() {

@@ -4,6 +4,8 @@
 
 .u-alignCenter { text-align: center; }
 .u-alignRight { text-align: right; }
+.u-inlineBlock { display: inline-block; }
+.u-block { display: block; }
 
 $slate: #2b3743;
 $slate-light: #43505d;
@@ -16,6 +18,7 @@ $red: #DD3B34;
 $red-dark: #B23534;
 $charcoal: #252525;
 $gray: #EAEAEA;
+$green: green;
 
 $body-padding: 20px;
 
@@ -29,6 +32,7 @@ $z-index-1: 100;
 @import 'spinner.scss';
 @import 'email-warning.scss';
 @import 'modal.scss';
+@import 'checkbox.scss';
 
 * {
   margin: 0;
@@ -57,11 +61,15 @@ input {
   background: $white;
   border-radius: 2px;
   padding: 5px 8px;
-  margin-bottom: 5px;
 
   &.stateInvalid {
     border-color: $red;
   }
+}
+
+.input-success {
+  font-size: 12px;
+  color: $green;
 }
 
 .reactBody {
@@ -269,15 +277,16 @@ $gutter-keywords: margin padding;
 $gutter-directions: top right bottom left;
 
 @each $keyword in $gutter-keywords {
-  .u-#{str-slice(#{$keyword},1,1)}-sm { #{$keyword}: 5px !important; }
   .u-#{str-slice(#{$keyword},1,1)} { #{$keyword}: 10px !important; }
-  .u-#{str-slice(#{$keyword},1,1)}-lg { #{$keyword}: 20px !important; }
   .u-no-#{str-slice(#{$keyword},1,1)} { #{$keyword}: 0 !important; }
 
   @each $direction in $gutter-directions {
-    .u-#{str-slice(#{$keyword},1,1)}-#{$direction}-sm { #{$keyword}-#{$direction}: 5px !important; }
     .u-#{str-slice(#{$keyword},1,1)}-#{$direction} { #{$keyword}-#{$direction}: 10px !important; }
-    .u-#{str-slice(#{$keyword},1,1)}-#{$direction}-lg { #{$keyword}-#{$direction}: 20px !important; }
     .u-no-#{str-slice(#{$keyword},1,1)}-#{$direction} { #{$keyword}-#{$direction}: 0 !important; }
+
+    @each $size, $multiplier in $gutter-sizes {
+      .u-#{str-slice(#{$keyword},1,1)}-#{$size} { #{$keyword}: 10px * $multiplier !important; }
+      .u-#{str-slice(#{$keyword},1,1)}-#{$direction}-#{$size} { #{$keyword}-#{$direction}: 10px * $multiplier !important; }
+    }
   }
 }

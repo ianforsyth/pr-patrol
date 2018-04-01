@@ -1,0 +1,15 @@
+.checkbox {
+  height: 16px;
+  width: 16px;
+  border: 1px solid $slate;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  color: transparent;
+
+  &.stateActive {
+    background: $slate-light;
+    color: $white;
+  }
+}

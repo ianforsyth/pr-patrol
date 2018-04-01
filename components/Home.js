@@ -83,7 +83,7 @@ class Home extends React.Component {
         <div className='content'>
           { this.state.isLoading && <Spinner isVisible={true}/> }
           { !this.state.isLoading && _.isEmpty(this.state.user) && <LandingPage></LandingPage> }
-          { !this.state.isLoading && !_.isEmpty(this.state.user) && <AppPage user={this.state.user}></AppPage> }
+          { !this.state.isLoading && !_.isEmpty(this.state.user) && <AppPage user={this.state.user} location={this.props.location}></AppPage> }
         </div>
         <div className='footer'>
           <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>

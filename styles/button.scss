@@ -6,7 +6,6 @@
   outline: 0;
   font-size: 16px;
   padding: 8px 20px;
-  overflow: hidden;
   position: relative;
   background: $slate;
   transition: background .25s;
@@ -28,17 +27,23 @@
   &.-size-lg {
     font-size: 20px;
     padding: 10px 25px;
+
+    .buttonIcon {
+      font-size: 32px;
+      margin-right: 10px;
+    }
   }
 }
 
 .buttonIcon {
-  font-size: 32px;
-  margin-right: 10px;
+  font-size: 15px;
+  margin-right: 5px;
 }
 
 .button--shine {
   @include blueGradient;
   @include shine-hover;
+  overflow: hidden;
 
   &:hover { @include blueGradient }
 }
