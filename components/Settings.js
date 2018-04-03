@@ -12,6 +12,7 @@ class Settings extends React.Component {
       email: this.props.user.email,
       receivesSlack: this.props.user.receivesSlack,
       receivesEmail: this.props.user.receivesEmail,
+      receivesOwn: this.props.user.receivesOwn,
       isInvalid: false,
       isSuccessful: false
     }
@@ -21,10 +22,15 @@ class Settings extends React.Component {
     this.handleUpdateClick = this.handleUpdateClick.bind(this)
     this.handleEmailClick = this.handleEmailClick.bind(this)
     this.handleSlackClick = this.handleSlackClick.bind(this)
+    this.handleOwnClick = this.handleOwnClick.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.receivesEmail != this.state.receivesEmail || prevState.receivesSlack != this.state.receivesSlack) {
+    if(
+      prevState.receivesEmail != this.state.receivesEmail ||
+      prevState.receivesSlack != this.state.receivesSlack ||
+      prevState.receivesOwn != this.state.receivesOwn
+    ) {
       this.updateUser()
     }
   }
@@ -43,6 +49,10 @@ class Settings extends React.Component {
 
   handleSlackClick() {
     this.setState({ receivesSlack: !this.state.receivesSlack })
+  }
+
+  handleOwnClick() {
+    this.setState({ receivesOwn: !this.state.receivesOwn })
   }
 
   handleUpdateClick() {
@@ -104,6 +114,8 @@ class Settings extends React.Component {
               </button>
           </a>
         }
+        <Checkbox className='u-inlineBlock u-m-right' isActive={this.state.receivesOwn} onClick={this.handleOwnClick}></Checkbox>
+        <div className='u-m-top-xl u-m-bottom u-inlineBlock'>I want to receive alerts when I make changes</div>
       </Modal>
     )
   }
