@@ -67,7 +67,8 @@ class Settings extends React.Component {
         id: this.props.user.id,
         email: this.state.email,
         receivesEmail: this.state.receivesEmail,
-        receivesSlack: this.state.receivesSlack
+        receivesSlack: this.state.receivesSlack,
+        receivesOwn: this.state.receivesOwn
       }).then((data) => {
         if(this.props.user.email != data.email) {
           this.setState({ isSuccessful: true })
