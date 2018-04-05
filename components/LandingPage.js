@@ -41,7 +41,11 @@ class LandingPage extends React.Component {
           <div className='step'>
             <h4 className='step-title'>3. Get alerts</h4>
             <div className='fas fa-bullhorn step-icon'></div>
-            <p className='step-description'>We send you an email when a PR opens and your files are in the diff</p>
+            <p className='step-description'>
+              <span>We send a </span>
+              <a href='https://slack.com/apps/A9NJ21CK0-pr-patrol' className='link'>Slack</a>
+              <span> or email when a PR opens and your files are in the diff</span>
+            </p>
           </div>
         </div>
       </div>

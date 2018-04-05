@@ -86,7 +86,11 @@ class Home extends React.Component {
           { !this.state.isLoading && !_.isEmpty(this.state.user) && <AppPage user={this.state.user} location={this.props.location}></AppPage> }
         </div>
         <div className='footer'>
-          <p>Made with <span className='fas fa-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a></p>
+          <p>
+            Made with <span className='fas fa-heart footer-heart'></span> by <a href='http://ianforsyth.com' target='_blank'>Ian Forsyth</a>
+            <span> | Questions or feedback? </span>
+            <a href='mailto:ian@ianforsyth.com' className='link'>Email me</a>
+          </p>
         </div>
       </div>
     )

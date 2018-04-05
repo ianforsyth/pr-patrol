@@ -253,11 +253,11 @@ input {
   text-align: center;
   background: $slate-dark;
   flex-shrink: 0;
+}
 
-  span {
-    margin: 0 2px;
-    color: $red
-  }
+.footer-heart {
+  margin: 0 2px;
+  color: $red
 }
 
 $gutter-px: 10px;
