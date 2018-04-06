@@ -51,7 +51,7 @@ class PatrolInput extends React.Component {
 
     return (
       <div>
-        <input className={`patrolInput ${invalidClass}`} type='text' autoFocus value={this.state.regex} onChange={this.handleChange}></input>
+        <input className={`u-m-bottom ${invalidClass}`} type='text' autoFocus value={this.state.regex} onChange={this.handleChange}></input>
         <button className='button -size-sm' onClick={this.handleSubmitClick}>
           { this.state.isEditing ? 'Update' : 'Add' } Patrol
         </button>
