@@ -50,10 +50,10 @@ class PatrolInput extends React.Component {
     const invalidClass = this.state.isValid ? '' : 'stateInvalid'
 
     return (
-      <div>
-        <input className={`u-m-bottom ${invalidClass}`} type='text' autoFocus value={this.state.regex} onChange={this.handleChange}></input>
+      <div class='u-flex u-alignCenter'>
+        <input className={`u-m-right ${invalidClass}`} type='text' autoFocus value={this.state.regex} onChange={this.handleChange}></input>
         <button className='button -size-sm' onClick={this.handleSubmitClick}>
-          { this.state.isEditing ? 'Update' : 'Add' } Patrol
+          { this.state.isEditing ? 'Update' : 'Add' }
         </button>
         <button className='button -size-sm button--subtle' onClick={this.props.onCancel}>Cancel</button>
       </div>
