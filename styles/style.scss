@@ -228,6 +228,11 @@ input {
   text-align: left;
 }
 
+.patrol-types {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
 .flash--error {
   background: $red;
   text-align: center;

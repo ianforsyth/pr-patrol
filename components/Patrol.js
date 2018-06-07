@@ -1,6 +1,7 @@
 import React from 'react'
 import PatrolService from 'PatrolService.js'
 import PatrolInput from 'PatrolInput'
+import Checkbox from 'Checkbox'
 
 class Patrol extends React.Component {
   constructor(props) {
@@ -8,10 +9,14 @@ class Patrol extends React.Component {
 
     this.state = {
       isEditing: false,
-      regex: this.props.patrol.regex
+      regex: this.props.patrol.regex,
+      isForFiles: this.props.patrol.isForFiles,
+      isForDiffs: this.props.patrol.isForDiffs,
     }
 
     this.handleEditClick = this.handleEditClick.bind(this)
+    this.handleFilesClick = this.handleFilesClick.bind(this)
+    this.handleDiffsClick = this.handleDiffsClick.bind(this)
     this.handleCancelClick = this.handleCancelClick.bind(this)
     this.handleUpdateClick = this.handleUpdateClick.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
@@ -32,6 +37,16 @@ class Patrol extends React.Component {
     })
   }
 
+  handleFilesClick() {
+    PatrolService.update({ id: this.props.patrol.id, isForFiles: !this.state.isForFiles })
+    this.setState({ isForFiles: !this.state.isForFiles })
+  }
+
+  handleDiffsClick() {
+    PatrolService.update({ id: this.props.patrol.id, isForDiffs: !this.state.isForDiffs })
+    this.setState({ isForDiffs: !this.state.isForDiffs })
+  }
+
   handleDeleteClick() {
     PatrolService.delete(this.props.patrol.id).then(() => {
       this.props.onDelete()
@@ -40,7 +55,7 @@ class Patrol extends React.Component {
 
   render() {
     return (
-      <div className='patrol'>
+      <div className='patrol u-flex'>
         <div className='patrol-regex'>
           { !this.state.isEditing &&
             <div>
@@ -50,7 +65,15 @@ class Patrol extends React.Component {
             </div>
           }
         </div>
-        <div className='patrol-actions'>
+        { !this.state.isEditing &&
+          <div className='patrol-types'>
+            <Checkbox className='u-inlineBlock u-m-right-sm' isActive={this.state.isForFiles} onClick={this.handleFilesClick}></Checkbox>
+            <span>Files</span>
+            <Checkbox className='u-inlineBlock u-m-right-sm u-m-left' isActive={this.state.isForDiffs} onClick={this.handleDiffsClick}></Checkbox>
+            <span>Diffs</span>
+          </div>
+        }
+        <div>
           { this.state.isEditing &&
             <PatrolInput
               onCancel={this.handleCancelClick}
