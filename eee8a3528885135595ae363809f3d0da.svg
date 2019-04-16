@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="63px" viewBox="0 0 1280 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Landing</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing" transform="translate(0.000000, -529.000000)" fill="#FFFFFF" stroke="#E0DFE2">
+            <g id="hero" transform="translate(0.000000, 18.000000)">
+                <path d="M0,42 L1280,42 L1280,574 C1066.66667,536.666667 853.333333,518 640,518 C426.666667,518 213.333333,536.666667 0,574 L0,42 Z" id="Rectangle"></path>
+            </g>
+        </g>
+    </g>
+</svg>

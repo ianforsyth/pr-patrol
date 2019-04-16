@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="498px" height="203px" viewBox="0 0 498 203" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>set up patrols</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing" transform="translate(-709.000000, -783.000000)">
+            <g id="set-up-patrols" transform="translate(77.000000, 783.000000)">
+                <g id="patrol" transform="translate(632.000000, 52.000000)">
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <text id="MagicNumberConstant" font-family="DroidSansMono, Droid Sans Mono" font-size="15" font-weight="normal" fill="#232325">
+                        <tspan x="12" y="30">MagicNumberConstant</tspan>
+                    </text>
+                    <g id="file-path" transform="translate(312.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#575659" fill="#FFFFFF" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <text id="File-Path" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">File Path</tspan>
+                        </text>
+                    </g>
+                    <g id="code" transform="translate(421.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#43B4BB" fill="#43B4BB" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <path d="M6.75502125,15.8036003 L2.2050168,11.4453475 C1.93166107,11.1835118 1.93166107,10.7589751 2.2050168,10.4971132 L3.19494355,9.54887893 C3.46829929,9.28701708 3.91154191,9.28701708 4.18489764,9.54887893 L7.24999829,12.4847803 L13.8151024,6.19637674 C14.0884581,5.93454109 14.5317007,5.93454109 14.8050565,6.19637674 L15.7949832,7.14461103 C16.0683389,7.40644669 16.0683389,7.83098347 15.7949832,8.09284532 L7.74497534,15.8036265 C7.47159226,16.0654622 7.02837698,16.0654622 6.75502125,15.8036003 L6.75502125,15.8036003 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <text id="Code" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">Code</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="patrol" transform="translate(632.000000, 0.000000)">
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <text id="db/migrate" font-family="DroidSansMono, Droid Sans Mono" font-size="15" font-weight="normal" fill="#232325">
+                        <tspan x="12" y="30">db/migrate</tspan>
+                    </text>
+                    <g id="file-path" transform="translate(312.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#43B4BB" fill="#43B4BB" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <path d="M6.75502125,15.8036003 L2.2050168,11.4453475 C1.93166107,11.1835118 1.93166107,10.7589751 2.2050168,10.4971132 L3.19494355,9.54887893 C3.46829929,9.28701708 3.91154191,9.28701708 4.18489764,9.54887893 L7.24999829,12.4847803 L13.8151024,6.19637674 C14.0884581,5.93454109 14.5317007,5.93454109 14.8050565,6.19637674 L15.7949832,7.14461103 C16.0683389,7.40644669 16.0683389,7.83098347 15.7949832,8.09284532 L7.74497534,15.8036265 C7.47159226,16.0654622 7.02837698,16.0654622 6.75502125,15.8036003 L6.75502125,15.8036003 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <text id="File-Path" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">File Path</tspan>
+                        </text>
+                    </g>
+                    <g id="code" transform="translate(421.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#575659" fill="#FFFFFF" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <text id="Code" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">Code</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="patrol" transform="translate(632.000000, 104.000000)">
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <text id=".test\.js" font-family="DroidSansMono, Droid Sans Mono" font-size="15" font-weight="normal" fill="#232325">
+                        <tspan x="12" y="30">.test\.js</tspan>
+                    </text>
+                    <g id="file-path" transform="translate(312.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#43B4BB" fill="#43B4BB" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <path d="M6.75502125,15.8036003 L2.2050168,11.4453475 C1.93166107,11.1835118 1.93166107,10.7589751 2.2050168,10.4971132 L3.19494355,9.54887893 C3.46829929,9.28701708 3.91154191,9.28701708 4.18489764,9.54887893 L7.24999829,12.4847803 L13.8151024,6.19637674 C14.0884581,5.93454109 14.5317007,5.93454109 14.8050565,6.19637674 L15.7949832,7.14461103 C16.0683389,7.40644669 16.0683389,7.83098347 15.7949832,8.09284532 L7.74497534,15.8036265 C7.47159226,16.0654622 7.02837698,16.0654622 6.75502125,15.8036003 L6.75502125,15.8036003 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <text id="File-Path" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">File Path</tspan>
+                        </text>
+                    </g>
+                    <g id="code" transform="translate(421.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#575659" fill="#FFFFFF" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <text id="Code" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">Code</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="patrol" transform="translate(632.000000, 156.000000)">
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <rect id="Rectangle" stroke="#E0DFE2" fill="#FFFFFF" x="0" y="0" width="498" height="47"></rect>
+                    <text id="sales_record" font-family="DroidSansMono, Droid Sans Mono" font-size="15" font-weight="normal" fill="#232325">
+                        <tspan x="12" y="30">sales_record</tspan>
+                    </text>
+                    <g id="file-path" transform="translate(312.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#43B4BB" fill="#43B4BB" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <path d="M6.75502125,15.8036003 L2.2050168,11.4453475 C1.93166107,11.1835118 1.93166107,10.7589751 2.2050168,10.4971132 L3.19494355,9.54887893 C3.46829929,9.28701708 3.91154191,9.28701708 4.18489764,9.54887893 L7.24999829,12.4847803 L13.8151024,6.19637674 C14.0884581,5.93454109 14.5317007,5.93454109 14.8050565,6.19637674 L15.7949832,7.14461103 C16.0683389,7.40644669 16.0683389,7.83098347 15.7949832,8.09284532 L7.74497534,15.8036265 C7.47159226,16.0654622 7.02837698,16.0654622 6.75502125,15.8036003 L6.75502125,15.8036003 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <text id="File-Path" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">File Path</tspan>
+                        </text>
+                    </g>
+                    <g id="code" transform="translate(421.000000, 13.000000)">
+                        <rect id="Rectangle" stroke="#43B4BB" fill="#43B4BB" x="0" y="2" width="18" height="18" rx="2"></rect>
+                        <path d="M6.75502125,15.8036003 L2.2050168,11.4453475 C1.93166107,11.1835118 1.93166107,10.7589751 2.2050168,10.4971132 L3.19494355,9.54887893 C3.46829929,9.28701708 3.91154191,9.28701708 4.18489764,9.54887893 L7.24999829,12.4847803 L13.8151024,6.19637674 C14.0884581,5.93454109 14.5317007,5.93454109 14.8050565,6.19637674 L15.7949832,7.14461103 C16.0683389,7.40644669 16.0683389,7.83098347 15.7949832,8.09284532 L7.74497534,15.8036265 C7.47159226,16.0654622 7.02837698,16.0654622 6.75502125,15.8036003 L6.75502125,15.8036003 Z" id="Path" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        <text id="Code" font-family="Lato-Regular, Lato" font-size="17" font-weight="normal" fill="#232325">
+                            <tspan x="23" y="17">Code</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
